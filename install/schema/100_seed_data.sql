@@ -1,49 +1,426 @@
-<?php
-$Query7 ="
+INSERT INTO `admin_menu` (`id`, `title`, `orders`, `url`, `access_admin`) VALUES
+(1, 'Товары', 1, 'all_tovars', 1),
+(2, 'Добавить товар', 3, 'add', 1),
+(3, 'Не активные', 2, 'noactive_tovars', 1),
+(4, 'Заказы', 5, 'zakazy', 0),
+(5, 'Страницы', 6, 'pages_editor', 1),
+(6, 'Меню', 7, 'edit_menu', 1),
+(7, 'Акции', 9, 'all_sale', 1),
+(8, 'Модули', 10, 'moduls_settings', 0),
+(9, 'Промокоды', 12, 'promokods', 1),
+(10, 'Касса', 15, 'y_kassa', 0),
+(11, 'Бонусы', 13, 'points_system', 0),
+(12, 'Выход', 16, '?logout_admin=1', 7),
+(13, 'Доставка (все)', 14, 'dostavka_price', 0),
+(14, 'Пользователи', 11, 'edit_users', 3),
+(15, 'Доп. товары', 2, 'edit_dop_tovar', 1),
+(16, 'Добавить страницу', 13, 'add_page', 0),
+(17, 'Характеристики', 4, 'edit_groupeFeatures', 1),
+(18, 'Ингредиенты', 4, 'edit_groupeIngredients', 0),
+(19, 'Города', 14, 'city_bind', 1),
+(20, 'Сотрудники', 14, 'users_admin_lists', 0),
+(21, 'Заказы инфо', 15, '/modules/z_test', 4),
+(22, 'Время ожидания', 15, 'city_points_setTimeOrder?id_affilate=1', 7),
+(23, 'Слайдер', 14, 'modules/settings_sliders_headers', 1),
+(24, 'Мероприятия', 9, 'all_events', 0),
+(25, 'Зоны доставки', 9, 'modules/dilivery_zones?moduls_dilivery=edit_map_delivered_zone', 1),
+(26, 'Редактор скидок', 9, 'modules/z_discount', 1),
+(27, 'Скидка ДР', 9, 'modules/birthday', 1),
+(28, 'Рекомендации', 15, 'modules/recommend', 1),
+(29, 'Корзина', 9, 'modules/settings_korzina', 1),
+(30, 'Push рассылки', 10, 'modules/pushNotificationAdmin', 1),
+(31, 'Подарки', 10, 'modules/gift', 2),
+(32, 'Наборы', 9, 'modules/dop_product_limit?moduls_set=all', 1);
 
---
--- Структура таблицы `points_order`
---
+INSERT INTO `ADM_WORK_catalog_list_day_sale` (`id`, `id_category_list_weekend`, `Number_day`, `hoursStart`, `minuteStart`, `hoursStop`, `minuteStop`, `active`) VALUES
+(1, 1, 0, '23', '0', '23', '59', 0),
+(2, 1, 1, '10', '0', '14', '59', 1),
+(3, 1, 2, '23', '0', '23', '59', 0),
+(4, 1, 3, '23', '0', '23', '59', 0),
+(5, 1, 4, '23', '0', '23', '59', 0),
+(6, 1, 5, '23', '0', '23', '59', 0),
+(7, 1, 6, '23', '0', '23', '59', 0),
+(43, 11, 0, '0', '0', '23', '0', 0),
+(44, 11, 1, '0', '0', '23', '0', 0),
+(45, 11, 2, '10', '0', '14', '59', 1),
+(46, 11, 3, '0', '0', '23', '0', 0),
+(47, 11, 4, '0', '0', '23', '0', 0),
+(48, 11, 5, '0', '0', '23', '0', 0),
+(49, 11, 6, '0', '0', '23', '0', 0),
+(50, 12, 0, '00', '00', '23', '00', 0),
+(51, 12, 1, '00', '00', '23', '00', 0),
+(52, 12, 2, '00', '00', '23', '00', 0),
+(53, 12, 3, '10', '0', '14', '00', 1),
+(54, 12, 4, '00', '00', '23', '00', 0),
+(55, 12, 5, '00', '00', '23', '00', 0),
+(56, 12, 6, '00', '00', '23', '00', 0),
+(57, 13, 0, '0', '0', '23', '0', 0),
+(58, 13, 1, '0', '0', '23', '0', 0),
+(59, 13, 2, '0', '0', '23', '0', 0),
+(60, 13, 3, '0', '0', '23', '0', 0),
+(61, 13, 4, '10', '0', '15', '59', 1),
+(62, 13, 5, '0', '0', '23', '0', 0),
+(63, 13, 6, '0', '0', '23', '0', 0),
+(64, 14, 0, '00', '00', '23', '00', 0),
+(65, 14, 1, '00', '00', '23', '00', 0),
+(66, 14, 2, '00', '00', '23', '00', 0),
+(67, 14, 3, '00', '00', '23', '00', 0),
+(68, 14, 4, '00', '00', '23', '00', 0),
+(69, 14, 5, '10', '0', '14', '00', 1),
+(70, 14, 6, '00', '00', '23', '00', 0),
+(71, 15, 0, '00', '00', '23', '00', 0),
+(72, 15, 1, '00', '00', '23', '00', 0),
+(73, 15, 2, '00', '00', '23', '00', 0),
+(74, 15, 3, '00', '00', '23', '00', 0),
+(75, 15, 4, '00', '00', '23', '00', 0),
+(76, 15, 5, '00', '00', '23', '00', 0),
+(77, 15, 6, '00', '00', '23', '00', 0),
+(78, 16, 0, '00', '00', '23', '00', 0),
+(79, 16, 1, '00', '00', '23', '00', 0),
+(80, 16, 2, '00', '00', '23', '00', 0),
+(81, 16, 3, '00', '00', '23', '00', 0),
+(82, 16, 4, '00', '00', '23', '00', 0),
+(83, 16, 5, '00', '00', '23', '00', 0),
+(84, 16, 6, '00', '00', '23', '00', 0);
 
-CREATE TABLE `points_order` (
-  `id` int(11) NOT NULL,
-  `id_affilate` varchar(255) NOT NULL,
-  `id_point` varchar(255) NOT NULL,
-  `id_points_pickup` varchar(255) NOT NULL,
-  `id_dot` varchar(255) NOT NULL,
-  `title` text NOT NULL,
-  `operating_mode` text NOT NULL,
-  `GEO_1` varchar(255) NOT NULL,
-  `GEO_2` varchar(255) NOT NULL,
-  `JsonNoneCheck` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `worktime` text NOT NULL,
-  `timeDeliveryDefault` int(11) NOT NULL DEFAULT '1',
-  `timeDeliveryNew` int(11) NOT NULL DEFAULT '1',
-  `timePickupDefault` int(11) NOT NULL DEFAULT '1',
-  `timePickupNew` int(11) NOT NULL DEFAULT '1',
-  `pincodeOfflinePoints` varchar(255) NOT NULL,
-  `offlinePointsStatus` int(11) NOT NULL DEFAULT '0',
-  `showUser` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `ADM_WORK_catalog_sale` (`id`, `id_category_sale`, `id_product`, `type_product`, `old_price`, `new_price`, `active`, `sum_other`) VALUES
+(9, 7, 842, 'small', '200', '200', 1, 0),
+(10, 8, 843, 'small', '200', '200', 1, 0),
+(11, 9, 844, 'small', '200', '200', 1, 0),
+(12, 10, 845, 'small', '200', '200', 1, 0),
+(13, 8, 848, 'small', '200', '200', 1, 0);
 
--- --------------------------------------------------------
+INSERT INTO `ADM_WORK_category_list_worktime_sale` (`id`, `title`, `active`) VALUES
+(1, 'Понедельник', 1),
+(11, 'Вторник', 1),
+(12, 'Среда', 1),
+(13, 'Четверг', 1),
+(14, 'Пятница', 1),
+(15, 'Суббота', 1),
+(16, 'Воскресенье', 1);
 
---
--- Структура таблицы `points_system`
---
+INSERT INTO `ADM_WORK_category_sale` (`id`, `date_start`, `date_stop`, `active`, `everyday`, `id_weekend`, `type_sale`, `time_start_hour`, `time_stop_hour`, `title_sale`) VALUES
+(7, 1626348120, 1640951940, 0, 0, 1, 1, NULL, NULL, 'Обеды Понедельник'),
+(8, 1626348120, 1640951940, 0, 0, 11, 1, NULL, NULL, 'Обеды Вторник'),
+(9, 1626348120, 1640951940, 0, 0, 12, 1, NULL, NULL, 'Обеды Среда'),
+(10, 1626348120, 1640951940, 0, 0, 13, 1, NULL, NULL, 'Обеды Четверг'),
+(11, 1626386040, 1640901240, 0, 0, 14, 1, NULL, NULL, 'Обеды Пятница'),
+(12, 1626386160, 1640901360, 0, 0, 15, 1, NULL, NULL, 'Обеды Суббота'),
+(13, 1626386160, 1640901360, 0, 0, 16, 1, NULL, NULL, 'Обеды Воскресенье');
 
-CREATE TABLE `points_system` (
-  `id` int(11) NOT NULL,
-  `summa` varchar(255) NOT NULL,
-  `summa_max` varchar(255) NOT NULL,
-  `proc` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+INSERT INTO `city_bind` (`id`, `shows_site`, `title`, `title_lat`, `id_affilate`) VALUES
+(1, 1, '{{CITY_TITLE}}', '{{CITY_LAT}}', '1');
 
---
--- Дамп данных таблицы `points_system`
---
+INSERT INTO `city_price` (`id`, `title`, `dostavka`, `min_price`, `min_zakaz`, `city_bind`, `api_id`) VALUES
+(1, '{{CITY_TITLE}}', '100', '1000', 0, 1, '');
+
+INSERT INTO `config` (`id`, `city_id`, `title_site`, `logo_site`, `template`, `access`, `admin_login`, `admin_pass`, `tovar_modal`, `default_category_page`, `def_on_category`, `footer_contacts`, `footer_copyright`, `header_contacts`, `header_text`, `description_site`, `keyword_site`, `reg_stop`, `sms_sender_id`, `soc_vk_link`, `soc_vk_title`, `soc_insta_link`, `soc_insta_title`, `soc_fb_link`, `soc_fb_title`, `soc_youtube_link`, `soc_youtube_title`, `time_timer`, `text_timer`, `text_timer_mobile`, `SaleShowCatalog`) VALUES
+(1, 0, '{{SITE_NAME}}', '', '', 0, '', '', 1, 0, 0, '', '', '0', '', '{{SITE_DESCRIPTION}}', '', 0, 1, '', '', '', '', '', '', '', '', '', '', '', 0),
+(2, 1, '{[city_title_html]} {{SITE_NAME}}', '/images/logo.png', 'default', 0, '', '', 1, 31, 1, 'Телефон: {{PHONE}} &lt;
+
+INSERT INTO `config_frontpad` (`id`, `api_key`, `apiUrl`, `active`, `city_id`) VALUES
+(1, 'keyFP', 'https://app.frontpad.ru/api/index.php?', 1, 1),
+(2, 'keyFP', 'https://app.frontpad.ru/api/index.php?', 1, 4);
+
+INSERT INTO `cork_settings` (`id`, `title`, `img_logo`, `text_h1`, `text_h2`, `text_p`, `footer`, `day`, `month`, `year`, `hour`, `min`, `sec`, `active`) VALUES
+(1, 'Технические работы', 'logo.png', 'Сайт откроется через:', '', '', '', '30', '09', '2025', '07', '01', '01', 1);
+
+INSERT INTO `datePreorderListStop` (`id`, `date_false`, `start_time_false`, `stop_time_false`, `active`) VALUES
+(2, '2020-01-13', '04:00:00', '12:00:00', 1),
+(3, '2020-01-13', '04:00:00', '18:00:00', 1),
+(4, '2020-02-21', '00:00:00', '23:59:00', 1),
+(5, '2020-02-22', '00:00:00', '23:59:00', 1),
+(6, '2020-02-23', '00:00:00', '23:59:00', 1),
+(7, '2020-03-06', '00:00:00', '23:59:00', 1),
+(8, '2020-03-07', '00:00:00', '23:59:00', 1),
+(9, '2020-03-08', '00:00:00', '23:59:00', 1),
+(10, '2020-12-31', '00:00:00', '23:59:00', 1),
+(11, '2021-02-14', '00:00:00', '23:59:00', 1),
+(12, '2021-02-23', '00:00:00', '23:59:00', 1),
+(13, '2021-03-08', '00:00:00', '23:59:00', 1),
+(14, '2021-03-05', '00:00:00', '23:59:00', 1),
+(15, '2021-04-01', '00:00:00', '23:59:00', 1);
+
+INSERT INTO `DZ_Locality` (`id`, `id_region`, `id_type_locality`, `id_city_price`, `localityName`, `active`) VALUES
+(1, 1, 1, 1, '{{CITY_TITLE}}', 1);
+
+INSERT INTO `DZ_PriceDeliveryLocality` (`id`, `id_locality`, `minPriсeOrder`, `minPriceDelivery`, `PriceDelivery`, `active`) VALUES
+(1, 1, 300, 600, 100, 1);
+
+INSERT INTO `DZ_Region` (`id`, `Region`, `RegionName`, `RegionTitle`, `active`) VALUES
+(1, '{{CITY_REGION}}','{{CITY_LAT}}', '{{CITY_TITLE}}', 1);
+
+INSERT INTO `DZ_TypeDistrict` (`id`, `shortDistrictTypeName`, `fullDistrictTypeName`, `active`) VALUES
+(1, 'мас.', 'Массив', 1),
+(2, 'мик.', 'Микрорайон', 1),
+(3, 'кв-л', 'Квартал', 1);
+
+INSERT INTO `DZ_TypeLocality` (`id`, `shortLocalityname`, `fullLocalityName`, `active`) VALUES
+(1, 'г.', 'Город', 1),
+(2, 'пгт.', 'Поселок городского типа', 1),
+(4, 'пос.', 'Поселок', 1),
+(5, 'с.', 'Село', 1),
+(6, 'Кот. пос.', 'Коттеджный поселок', 1),
+(7, 'тов.', 'Товарищество', 1),
+(8, 'дер.', 'Деревня', 1),
+(9, 'ст.', 'Садовое товарищество', 1),
+(10, 'ПДСК', 'ПДСК', 1),
+(11, 'снт.', 'Садоводческое некоммерческое товарищество', 1),
+(12, 'тсн.', 'Товарищество собственников недвижимости', 1),
+(13, 'рабочий посёлок', 'Рабочий посёлок', 1);
+
+INSERT INTO `DZ_Type_street` (`id`, `shortStreetTypeName`, `fullStreetTypeName`, `active`) VALUES
+(1, 'аллея', 'Аллея', 1),
+(2, 'б-р', 'Бульвар', 1),
+(3, 'вал', 'Вал', 1),
+(4, 'взвоз', 'Взвоз', 1),
+(5, 'въезд', 'Въезд', 1),
+(6, 'дор.', 'Дорога', 1),
+(7, 'заезд', 'Заезд', 1),
+(8, 'кольцо', 'Кольцо', 1),
+(9, 'линия', 'Линия', 1),
+(10, 'луч', 'Луч', 1),
+(11, 'маг.', 'Магистраль', 1),
+(12, 'наб.', 'Набережная', 1),
+(13, 'пер.', 'Переулок', 1),
+(14, 'пл.', 'Площадь', 1),
+(15, 'проезд', 'Проезд', 1),
+(16, 'пр-кт', 'Проспект', 1),
+(17, 'проулок', 'Проулок', 1),
+(18, 'разъезд', 'Разъезд', 1),
+(19, 'спуск', 'Спуск', 1),
+(20, 'съезд', 'Съезд', 1),
+(21, 'тракт', 'Тракт', 1),
+(22, 'туп.', 'Тупик', 1),
+(23, 'ул.', 'Улица', 1),
+(24, 'шос.', 'Шоссе', 1),
+(25, 'сквер', 'Сквер', 1),
+(26, 'Жилой Массив', 'Жилой Массив', 1),
+(27, 'ЖК', 'Жилой Комплекс', 1),
+(28, 'мост', 'Мост', 1),
+(29, 'путепровод', 'Путепровод', 1),
+(30, 'платформа', 'Платформа', 1);
+
+INSERT INTO `features` (`id`, `title`, `unit`, `groups`) VALUES
+(1, 'Энергетическая ценность', 'Ккал', 2),
+(2, 'Углеводы', 'г', 2),
+(3, 'Жиры', 'г', 2),
+(4, 'Белки', 'г', 2),
+(5, 'Все ±', 'гр', 4);
+
+INSERT INTO `gift_color` (`id`, `color`, `active`, `img`) VALUES
+(1, '#b3ce00', 0, 'none'),
+(2, '#DC143C', 0, 'none'),
+(3, '#fbca05', 0, 'none'),
+(4, '#ff3e4c', 0, 'none'),
+(5, '#f5b1f5', 0, ''),
+(6, '#7bbaa8', 0, ''),
+(7, '#f7f76f', 0, ''),
+(8, '#f08800', 1, ''),
+(9, '#ff4551', 1, ''),
+(10, '#e20615', 1, '');
+
+INSERT INTO `gift_line` (`id`, `summa`, `color`, `active`) VALUES
+(1, '165', '#f08800', 1),
+(2, '2200', '#ff4551', 1),
+(3, '3300', '#e20615', 1);
+
+INSERT INTO `gift_list` (`id`, `city_id`, `title`, `min_price`, `sale_price`, `active`, `color`, `delete_gift`, `orders`) VALUES
+(1, 1, 'от 1600 руб.', '1600', '0', 1, 8, 0, 1),
+(2, 1, 'от 2000 руб.', '2000', '0', 1, 9, 0, 2),
+(3, 1, 'от 3000 руб.', '3000', '0', 1, 1, 0, 3);
+
+INSERT INTO `gift_setting` (`id`, `active`, `width`, `height`, `width_type`, `height_type`, `position`, `min_summa`, `max_summa`) VALUES
+(1, 1, 10, 300, 1, 1, 0, '0', '3400');
+
+INSERT INTO `groups_features` (`id`, `title`, `descr`, `features`) VALUES
+(2, 'Пищевая ценность (порция):', 'каллории, жиры и тд.', ''),
+(4, 'Вес ±', 'Кол-во ± грамм в характеристике', '');
+
+INSERT INTO `groups_ingredients` (`id`, `title`, `descr`, `ingredients`) VALUES
+(1, 'Тесто', 'Список типов теста', '1|2|3'),
+(2, 'Мясо и мясные продукты', '', ''),
+(3, 'Молочные продукты', '', ''),
+(4, 'Специи и травы', '', ''),
+(5, 'Овощи', '', ''),
+(6, 'Фрукты', '', ''),
+(7, 'Грибы', '', ''),
+(8, 'Заливки и соусы', '', ''),
+(9, 'Общая категория', '', ''),
+(11, 'Ягоды', '', ''),
+(12, 'Масла', '', ''),
+(13, 'Полуфабрикаты', '', ''),
+(14, 'Бабовые', '', ''),
+(15, 'Фастфуд', '', ''),
+(16, 'Зелень', '', ''),
+(17, 'Сладости', '', ''),
+(18, 'Начинки', '', ''),
+(19, 'Орехи', '', '');
+
+INSERT INTO `headmenu` (`id`, `name`, `url`, `active`, `orders`) VALUES
+(1, 'Доставка', '/dostavka', 1, 1),
+(2, 'Акции', '/sale', 1, 2),
+(3, 'Контакты', '/kontakts', 1, 5),
+(4, 'Бонусы', '/points', 1, 4);
+
+INSERT INTO `list_category_preset` (`id`, `id_category`, `active`, `deleted`) VALUES
+(1, 1, 1, 0),
+(2, 2, 1, 0);
+
+INSERT INTO `list_dop_product_preset` (`id`, `id_tovar`, `id_dop_tovar`, `count`, `count_height`, `count_height_type`, `active`, `deleted`, `pluse_count`, `pluse_height`) VALUES
+(1, 1, 1, 0, '', '', 1, 0, 0, 1),
+(2, 1, 3, 0, '', '', 1, 1, 0, 1);
+
+INSERT INTO `list_dop_product_set` (`id`, `title`, `sum_min`, `sum_max`, `api_id`, `active`) VALUES
+(1, 'Набор 0', 1, 460, 2201, 0),
+(2, 'Набор 1', 461, 845, 2202, 0),
+(3, 'Набор 2', 846, 1100, 2203, 0),
+(4, 'Набор 3', 1101, 1400, 2204, 0),
+(5, 'Набор 4', 1401, 1750, 2205, 0),
+(6, 'Набор 5', 1751, 2200, 2205, 0),
+(7, 'Набор 6', 2201, 2700, 2205, 0),
+(8, 'Набор 7', 2701, 3050, 2205, 0),
+(9, 'Набор 8', 3051, 3450, 2205, 0),
+(10, 'Набор 9', 3451, 3850, 2205, 0),
+(11, 'Набор 10', 3851, 4300, 2205, 0);
+
+INSERT INTO `list_dop_product_set_goods` (`id`, `title`, `type_size`, `active`) VALUES
+(1, 'Васаби', 'гр', 1),
+(2, 'Имбирь', 'гр', 1),
+(3, 'Соевый соус', 'мл', 1),
+(4, 'Соусник', 'шт', 1),
+(5, 'Палочки', 'шт', 1),
+(6, 'Салфетки', 'шт', 1);
+
+INSERT INTO `list_dop_product_set_structure` (`id`, `id_set`, `id_dop_product`, `count`, `type_size`) VALUES
+(1, 1, 1, 5, 'гр'),
+(2, 1, 2, 15, 'гр'),
+(3, 1, 3, 35, 'мл'),
+(4, 1, 4, 0, 'шт'),
+(5, 1, 5, 0, 'шт'),
+(6, 1, 6, 0, 'шт'),
+(7, 2, 1, 5, ''),
+(8, 2, 2, 20, ''),
+(9, 2, 3, 70, ''),
+(10, 2, 4, 0, ''),
+(11, 2, 5, 0, ''),
+(12, 2, 6, 0, ''),
+(13, 3, 1, 10, ''),
+(14, 3, 2, 30, ''),
+(15, 3, 3, 105, ''),
+(16, 3, 4, 0, ''),
+(17, 3, 5, 0, ''),
+(18, 3, 6, 0, ''),
+(19, 4, 1, 15, ''),
+(20, 4, 2, 35, ''),
+(21, 4, 3, 140, ''),
+(22, 4, 4, 0, ''),
+(23, 4, 5, 0, ''),
+(24, 4, 6, 0, ''),
+(25, 5, 1, 20, ''),
+(26, 5, 2, 40, ''),
+(27, 5, 3, 140, ''),
+(28, 5, 4, 0, ''),
+(29, 5, 5, 0, ''),
+(30, 5, 6, 0, ''),
+(31, 6, 3, 210, ''),
+(32, 6, 4, 0, ''),
+(33, 6, 2, 45, ''),
+(34, 6, 1, 20, ''),
+(35, 6, 5, 0, ''),
+(36, 6, 6, 0, ''),
+(37, 7, 1, 25, ''),
+(38, 7, 2, 45, ''),
+(39, 7, 3, 245, ''),
+(40, 7, 4, 0, ''),
+(41, 7, 5, 0, ''),
+(42, 7, 6, 0, ''),
+(43, 8, 1, 25, ''),
+(44, 8, 2, 45, ''),
+(45, 8, 3, 280, ''),
+(46, 8, 4, 0, ''),
+(47, 8, 5, 0, ''),
+(48, 8, 6, 0, ''),
+(49, 9, 1, 30, ''),
+(50, 9, 2, 50, ''),
+(51, 9, 3, 315, ''),
+(52, 9, 4, 0, ''),
+(53, 9, 5, 0, ''),
+(54, 9, 6, 0, ''),
+(55, 10, 1, 35, ''),
+(56, 10, 2, 50, ''),
+(57, 10, 3, 350, ''),
+(58, 10, 4, 0, ''),
+(59, 10, 5, 0, ''),
+(60, 10, 6, 0, ''),
+(61, 11, 1, 35, ''),
+(62, 11, 2, 50, ''),
+(63, 11, 3, 385, ''),
+(64, 11, 4, 0, ''),
+(65, 11, 5, 0, ''),
+(66, 11, 6, 0, '');
+
+INSERT INTO `metrikaAction` (`id`, `idPosition`, `marker`, `active`) VALUES
+(1, 3, 'ModalProductOpen', 1),
+(2, 1, 'AddBasket', 1),
+(3, 4, 'PaymentOK', 1),
+(4, 2, 'SerchOpen', 1);
+
+INSERT INTO `modal_block` (`id`, `page_show`, `img`, `H_color`, `text_color`, `background_color`, `title`, `content`, `button`, `linkbutton`, `fontSizeButton`, `size_text`, `fonts`, `weight`, `active`, `deleted`, `template`, `maxWidthBlock`, `size_textTitle`, `fontsTitle`, `weighttextTitle`, `marginH`, `textAlignTitle`, `marginText`, `PaddingText`, `textAlign`, `borderradius`, `buttonModalPosition`, `closePosition`, `delayShow`, `countShow`, `TimePauseShow`, `ShowWeekend`, `Mo_start`, `Tu_start`, `We_start`, `Th_start`, `Fr_start`, `Sa_start`, `Su_start`, `Mo_stop`, `Tu_stop`, `We_stop`, `Th_stop`, `Fr_stop`, `Sa_stop`, `Su_stop`, `marginBloclBottom`, `AdminShow`, `timeStartSession`, `onclickButton`, `typeDevice`) VALUES
+(8, 'index', '/images/alarrm_texture.png', '', '', '#ffffff', 'Уведомление!', '<p style=\"text-align: center;
+
+INSERT INTO `modal_button` (`id`, `name`, `active`) VALUES
+(1, 'Заказать', 1),
+(2, 'Купить', 1),
+(3, 'Оформить', 1),
+(4, 'Узнать', 1),
+(5, 'Подробнее', 1),
+(6, 'Перейти', 1),
+(7, 'Закрыть', 1),
+(8, 'Позвонить', 1),
+(9, 'Написать', 1),
+(10, 'Пригласить', 1),
+(11, 'Закрыть', 1);
+
+INSERT INTO `modal_template` (`id`, `title`, `code`, `style`, `active`) VALUES
+(1, 'Картинка | Текст | Кнопка', '<div><div class=\"imageBlocModal\"><img src=\"{[imgModal]}\" style=\"max-width:100%;
+
+INSERT INTO `padej_title` (`id`, `I`, `R`, `D`, `V`, `T`, `P`) VALUES
+(1, 'Пицца', 'Пиццы', 'пицце', 'Пиццу', 'Пиццей', 'Пицце'),
+(2, 'Роллы', 'Роллов', 'Роллам', 'Роллы', 'Роллами', 'Роллах'),
+(3, 'Сет', 'Сета', 'Сету', 'Сет', 'Сетом', 'Сете'),
+(4, 'Сеты', 'Сетов', 'Сетам', 'Сеты', 'Сетами', 'Сетах'),
+(5, 'Суши', 'Суши', 'Сушам', 'Суши', 'Сушами', 'Сушах'),
+(6, 'Лапша', 'Лапши', 'Лапше', 'Лапшу', 'Лапшой', 'Лапше'),
+(7, 'Супы', 'Супов', 'Супам', 'Супы', 'Супами', 'Супах'),
+(8, 'Добавки', 'Добавок', 'Добавкам', 'Добавки', 'Добавками', 'Добавках'),
+(9, 'Салат', 'Салата', 'Салату', 'Салат', 'Салатом', 'Салате'),
+(10, 'Салаты', 'Салатов', 'Салатам', 'Салаты', 'Салатами', 'Салатах'),
+(11, 'Суп', 'Супа', 'Супу', 'Суп', 'Супом', 'Супе'),
+(12, 'Добавка', 'Добавки', 'Добавке', 'Добавку', 'Добавкой', 'Добавке'),
+(13, 'Мексика', 'Мексики', 'Мексике', 'Мексику', 'Мексикой', 'Мексике'),
+(14, 'Русская кухня', 'Русской кухни', 'Русской кухне', 'Русскую кухню', 'Русской кухней', 'Русской кухне'),
+(15, 'Мясные', 'Мясных', 'Мясной', 'Мясную', 'Мясной', 'Мясной'),
+(16, 'Классические роллы', 'Классических роллов', 'Классическим роллам', 'Классические роллы', 'Классическими роллами', 'Классических роллах'),
+(17, 'Классические запеченные роллы', 'Классических запеченных роллов', 'Классическим запеченным роллам', 'Классические запеченные роллы', 'Классическими запеченными роллами', 'Классических запеченных роллах'),
+(18, 'Сложные роллы', 'Сложных роллов', 'Сложным роллам', 'Сложные роллы', 'Сложными роллами', 'Сложных роллах'),
+(19, 'Печеные роллы', 'Печеных роллов', 'Печеным роллам', 'Печеные роллы', 'Печеными роллами', 'Печеных роллах'),
+(20, 'К роллам и суши', 'К роллам и суши', 'К роллам и суши', 'К роллам и суши', 'К роллам и суши', 'К роллам и суши'),
+(21, 'Пироги', 'Пирогов', 'Пирогам', 'Пироги', 'Пирогами', 'Пирогах'),
+(22, 'Чизкейки', 'Чизкейков', 'Чизкейкам', 'Чизкейки', 'Чизкейками', 'Чизкейках'),
+(23, 'Закуски', 'Закусок', 'Закускам', 'Закуски', 'Закусками', 'Закусках'),
+(24, 'Напитки', 'Напитков', 'Напиткам', 'Напитки', 'Напитками', 'Напитках'),
+(25, 'Сладкие пироги', 'Сладких пирогов', 'Сладким пирогам', 'Сладкие пироги', 'Сладкими пирогами', 'Сладких пирогах');
+
+INSERT INTO `pages` (`id`, `title`, `descriptions`, `keywords`, `url`, `type`, `content`, `dop_info`, `city_id`) VALUES
+(1, '{{COMPANY_NAME}}', '{{COMPANY_NAME}}', '', 'index', '0', '', '', 0),
+(9, 'Личный кабинет', 'Личный кабинет пользователя', 'личный кабинет, аккаунт, информация о пользователе', 'account', '0', '', '', 0),
+(10, 'Корзина - пара простых шагов для оплаты', 'Корзина товаров', 'оформить заказ, заказать на дом, курьером, в корзине, бонусы', 'korzina', '0', '', '', 0),
+(2, 'Новости', 'Новости описание', '', 'news', '0', 'Тут контент для страницы с новостями', '', 0),
+(4, '{{COMPANY_NAME}} - Контакты.', 'Контактная информация.', 'контакты', 'kontakts', '1', '<p style=\"text-align: center;
+
+INSERT INTO `stats_code` (`id`, `text`, `active`, `code_yandex`, `city_id`) VALUES
+(1, '<!-- Yandex.Metrika counter -->\n<script type=\"text/javascript\" >\n   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 
 INSERT INTO `points_system` (`id`, `summa`, `summa_max`, `proc`) VALUES
 (1, '0', '1000', '1'),
@@ -53,29 +430,6 @@ INSERT INTO `points_system` (`id`, `summa`, `summa_max`, `proc`) VALUES
 (5, '29500', '36999', '5'),
 (6, '37000', '44499', '5'),
 (7, '44500', '99999999999', '5');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `points_time_list`
---
-
-CREATE TABLE `points_time_list` (
-  `id` int(11) NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1',
-  `time_id` int(11) NOT NULL,
-  `id_affiliate` int(11) NOT NULL DEFAULT '1',
-  `id_point` int(11) NOT NULL,
-  `timeDeliveryDefault` int(11) NOT NULL,
-  `timeDeliveryNew` int(11) NOT NULL,
-  `timePickupDefault` int(11) NOT NULL,
-  `timePickupNew` int(11) NOT NULL,
-  `peak_hours` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `points_time_list`
---
 
 INSERT INTO `points_time_list` (`id`, `active`, `time_id`, `id_affiliate`, `id_point`, `timeDeliveryDefault`, `timeDeliveryNew`, `timePickupDefault`, `timePickupNew`, `peak_hours`) VALUES
 (1, 1, 0, 1, 1, 90, 60, 40, 30, 0),
@@ -246,228 +600,15 @@ INSERT INTO `points_time_list` (`id`, `active`, `time_id`, `id_affiliate`, `id_p
 (166, 0, 22, 4, 7, 90, 90, 40, 40, 0),
 (167, 0, 23, 4, 7, 90, 90, 40, 40, 0);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `pripravi`
---
-
-CREATE TABLE `pripravi` (
-  `id` int(11) NOT NULL,
-  `id_category` varchar(255) NOT NULL,
-  `title` text NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `img` text NOT NULL,
-  `active_tovar` int(11) NOT NULL DEFAULT '0',
-  `api_id` varchar(255) NOT NULL,
-  `orders` int(11) NOT NULL DEFAULT '0',
-  `city_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `promokod`
---
-
-CREATE TABLE `promokod` (
-  `id` int(11) NOT NULL,
-  `kode` varchar(255) NOT NULL,
-  `type_promo` int(11) NOT NULL DEFAULT '0' COMMENT '0 - одноразовый, 1 - ограниченное кол-во раз (поле count_checj), 2 - многоразовый, ',
-  `count_check` int(11) NOT NULL DEFAULT '1',
-  `count_tovar` int(11) NOT NULL DEFAULT '1',
-  `time_create` int(11) NOT NULL,
-  `time_start_active` int(11) NOT NULL DEFAULT '0' COMMENT '0 - с момента создания',
-  `time_life` int(11) NOT NULL DEFAULT '0',
-  `id_user` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL,
-  `id_tovar` int(11) NOT NULL,
-  `sale` int(11) NOT NULL,
-  `sale_type` int(11) NOT NULL DEFAULT '0' COMMENT '0 - проценты, 1 - рубли',
-  `status` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `type_tovar` text NOT NULL COMMENT 'all - любой тип',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `dop_setings` int(11) NOT NULL DEFAULT '0',
-  `id_category_settings` int(11) NOT NULL DEFAULT '0',
-  `count_tovar_active` int(11) NOT NULL DEFAULT '0',
-  `id_tovar_default` int(11) NOT NULL DEFAULT '0',
-  `type_tovar_default` text NOT NULL,
-  `add_tovar_cart` int(11) NOT NULL DEFAULT '0',
-  `summa_min_active` int(11) NOT NULL DEFAULT '0',
-  `type_summa_check` int(11) NOT NULL DEFAULT '0' COMMENT '0 - Не учитывать 1-Учитывать за вычетом скидки 2-Учитывать полностью',
-  `addition_gifts` int(11) NOT NULL DEFAULT '0',
-  `addition_birthday` int(11) NOT NULL DEFAULT '0',
-  `addition_discount` int(11) NOT NULL DEFAULT '0',
-  `adds_type` int(11) NOT NULL DEFAULT '0' COMMENT '0 - создан админом | 1 - создан менеджером',
-  `time_to_do` int(11) NOT NULL DEFAULT '0',
-  `time_on` varchar(255) NOT NULL,
-  `time_off` varchar(255) NOT NULL,
-  `typeDevice` int(11) NOT NULL DEFAULT '1' COMMENT '1 - все, 2 - сайт, 3 - приложения',
-  `city_id` int(11) NOT NULL DEFAULT '0',
-  `promo_total` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `promokod_actions`
---
-
-CREATE TABLE `promokod_actions` (
-  `id` int(11) NOT NULL,
-  `id_kode` int(11) NOT NULL,
-  `kode` text NOT NULL,
-  `text` text NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `time` int(11) NOT NULL,
-  `date` text NOT NULL,
-  `zakaz` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `pushNoticeList`
---
-
-CREATE TABLE `pushNoticeList` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL DEFAULT '0',
-  `pushKey` text NOT NULL,
-  `title` text NOT NULL,
-  `body` text NOT NULL,
-  `data` text,
-  `status` varchar(255) NOT NULL,
-  `idStatus` text,
-  `message` text,
-  `detail` text,
-  `date` int(11) NOT NULL,
-  `readNotice` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `pushTokenDeviceUser`
---
-
-CREATE TABLE `pushTokenDeviceUser` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL DEFAULT '0',
-  `typeDevice` text,
-  `expoPushToken` text,
-  `DeviceToken` text,
-  `active` int(11) NOT NULL DEFAULT '1',
-  `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `referer_orders_list`
---
-
-CREATE TABLE `referer_orders_list` (
-  `id` int(11) NOT NULL,
-  `id_zakaz` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `referer_data` text NOT NULL,
-  `date_order` text NOT NULL,
-  `time_order` text NOT NULL,
-  `no_stats_celi` int(11) NOT NULL DEFAULT '0',
-  `Require_URL` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `repeatOrderStat`
---
-
-CREATE TABLE `repeatOrderStat` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_order` int(11) NOT NULL,
-  `time` int(11) NOT NULL,
-  `date` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `statusText` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `reviews_group`
---
-
-CREATE TABLE `reviews_group` (
-  `id` int(11) NOT NULL,
-  `type` int(11) NOT NULL DEFAULT '0',
-  `id_city` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `emoji` text,
-  `Htitle` text,
-  `text` text,
-  `active` int(11) NOT NULL DEFAULT '0',
-  `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `reviews_group`
---
-
 INSERT INTO `reviews_group` (`id`, `type`, `id_city`, `title`, `emoji`, `Htitle`, `text`, `active`, `deleted`) VALUES
 (1, 0, 1, 'Опрос по доставке', 'final.png', 'Спасибо за ответы', 'Они помогают нам стать лучше', 1, 1),
 (2, 1, 1, 'Опрос по самовывозу', 'final.png', 'Спасибо за ответы', 'Они помогают нам стать лучше', 1, 0),
 (3, 0, 4, 'Опрос по доставке', 'final.png', 'Спасибо за ответы', 'Они помогают нам стать лучше', 1, 1),
 (4, 1, 4, 'Опрос по самовывозу', 'final.png', 'Спасибо за ответы', 'Они помогают нам стать лучше', 1, 0);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `reviews_list`
---
-
-CREATE TABLE `reviews_list` (
-  `id` int(11) NOT NULL,
-  `id_order` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  `active` int(11) NOT NULL DEFAULT '0',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `comment` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `reviews_list`
---
-
 INSERT INTO `reviews_list` (`id`, `id_order`, `status`, `active`, `deleted`, `comment`) VALUES
 (1, 144, 0, 1, 0, NULL),
 (2, 185, 1, 1, 0, 'Вкуснр');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `reviews_question`
---
-
-CREATE TABLE `reviews_question` (
-  `id` int(11) NOT NULL,
-  `id_group` int(11) NOT NULL,
-  `question` text NOT NULL,
-  `emoji` text,
-  `type` int(11) NOT NULL DEFAULT '0',
-  `active` int(11) NOT NULL DEFAULT '0',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `id_city` int(11) NOT NULL,
-  `orders` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `reviews_question`
---
 
 INSERT INTO `reviews_question` (`id`, `id_group`, `question`, `emoji`, `type`, `active`, `deleted`, `id_city`, `orders`) VALUES
 (1, 2, 'Был ли кассир в маске?', 'question1.png', 0, 1, 0, 0, 1),
@@ -495,150 +636,14 @@ INSERT INTO `reviews_question` (`id`, `id_group`, `question`, `emoji`, `type`, `
 (23, 4, 'На сколько еда была вкусной?', 'question2.png', 1, 1, 0, 0, 5),
 (24, 4, 'Оцените время исполнения заказа', 'question3.png', 1, 1, 0, 0, 3);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `reviews_result`
---
-
-CREATE TABLE `reviews_result` (
-  `id` int(11) NOT NULL,
-  `id_review` int(11) NOT NULL,
-  `question` text NOT NULL,
-  `answer` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '0',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `rate` int(11) NOT NULL DEFAULT '0',
-  `comment` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `sales`
---
-
-CREATE TABLE `sales` (
-  `id` int(11) NOT NULL,
-  `type` int(11) NOT NULL DEFAULT '0',
-  `title` text NOT NULL,
-  `text` text NOT NULL,
-  `img` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '0',
-  `orders` int(11) NOT NULL DEFAULT '0',
-  `city_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `session_data_voice_order`
---
-
-CREATE TABLE `session_data_voice_order` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `sessionUser` text NOT NULL,
-  `jsonData` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_accounts`
---
-
-CREATE TABLE `settings_accounts` (
-  `id` int(11) NOT NULL COMMENT 'Заполняется автоматически',
-  `active_reg` int(11) NOT NULL COMMENT 'Возможность регистрации 0 - возможна, 1 - запрещена',
-  `active_login` int(11) NOT NULL COMMENT 'Возможность авторизации 0 - разрешена, 1 - запрещена',
-  `active_points` int(11) NOT NULL COMMENT 'Начисление баллов 0 - начислять, 1 - запретить начисление',
-  `active_accounts` int(11) NOT NULL COMMENT 'Включение модуля личный кабинет: 0 - вкл, 1 - выкл'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_accounts`
---
-
 INSERT INTO `settings_accounts` (`id`, `active_reg`, `active_login`, `active_points`, `active_accounts`) VALUES
 (1, 0, 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_birthday_modul`
---
-
-CREATE TABLE `settings_birthday_modul` (
-  `id` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
-  `percent` int(11) NOT NULL,
-  `day_before` int(11) NOT NULL,
-  `day_after` int(11) NOT NULL,
-  `min_price_check` tinyint(1) NOT NULL DEFAULT '0',
-  `print_date` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_birthday_modul`
---
 
 INSERT INTO `settings_birthday_modul` (`id`, `active`, `percent`, `day_before`, `day_after`, `min_price_check`, `print_date`) VALUES
 (1, 1, 10, 3, 3, 1, 1);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_discounts_category`
---
-
-CREATE TABLE `settings_discounts_category` (
-  `id` int(11) NOT NULL,
-  `id_discount` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_discounts_category`
---
-
 INSERT INTO `settings_discounts_category` (`id`, `id_discount`, `id_category`, `active`) VALUES
 (1, 1, 39, 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_discounts_modul`
---
-
-CREATE TABLE `settings_discounts_modul` (
-  `id` int(11) NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '0',
-  `date_start` int(11) NOT NULL,
-  `date_stop` int(11) NOT NULL,
-  `title` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_discounts_sale`
---
-
-CREATE TABLE `settings_discounts_sale` (
-  `id` int(11) NOT NULL,
-  `id_discount` int(11) NOT NULL,
-  `count` int(11) NOT NULL,
-  `sale` int(11) NOT NULL,
-  `active` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_discounts_sale`
---
 
 INSERT INTO `settings_discounts_sale` (`id`, `id_discount`, `count`, `sale`, `active`) VALUES
 (1, 1, 3, 5, 1),
@@ -646,106 +651,18 @@ INSERT INTO `settings_discounts_sale` (`id`, `id_discount`, `count`, `sale`, `ac
 (3, 1, 7, 15, 1),
 (4, 1, 10, 20, 1);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_korz`
---
-
-CREATE TABLE `settings_korz` (
-  `id` int(11) NOT NULL,
-  `id_city` int(11) DEFAULT NULL,
-  `active` int(11) NOT NULL,
-  `active_app_vk` int(11) NOT NULL DEFAULT '0',
-  `active_app_mobile` int(11) NOT NULL DEFAULT '0',
-  `active_app_mobile_v2` int(11) NOT NULL DEFAULT '0',
-  `points_on` int(11) NOT NULL DEFAULT '0',
-  `sale_on` int(11) NOT NULL DEFAULT '0',
-  `count_sale_on` int(11) NOT NULL,
-  `proc_sale` varchar(255) NOT NULL,
-  `onlinePaymentActive` int(11) NOT NULL DEFAULT '0',
-  `cashPaymentActive` int(11) NOT NULL DEFAULT '0',
-  `terminalPaymentActive` int(11) NOT NULL DEFAULT '0',
-  `timeStartActiveMobileBasket` text,
-  `timeStopActiveMobileBasket` text
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_korz`
---
-
 INSERT INTO `settings_korz` (`id`, `id_city`, `active`, `active_app_vk`, `active_app_mobile`,`active_app_mobile_v2`, `points_on`, `sale_on`, `count_sale_on`, `proc_sale`, `onlinePaymentActive`, `cashPaymentActive`, `terminalPaymentActive`, `timeStartActiveMobileBasket`, `timeStopActiveMobileBasket`) VALUES
 (1, 1, 1, 1, 1, 1, 1, 0, 4, '10', 0, 1, 1, '10:00', '21:45'),
 (2, 4, 1, 1, 1, 1, 0, 0, 4, '10', 0, 1, 1, NULL, NULL),
 (3, 0, 0, 0, 0, 0, 0, 0, 0, '1', 0, 0, 0, '10:30', '22:30');
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_preorder`
---
-
-CREATE TABLE `settings_preorder` (
-  `id` int(11) NOT NULL,
-  `year_on` int(11) NOT NULL,
-  `month_on` int(11) NOT NULL,
-  `count_day_preorder` int(11) NOT NULL,
-  `start_time` varchar(11) NOT NULL,
-  `stop_time` varchar(11) NOT NULL,
-  `interval_time` int(11) NOT NULL,
-  `interval_type` int(11) NOT NULL,
-  `template_view` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_preorder`
---
-
 INSERT INTO `settings_preorder` (`id`, `year_on`, `month_on`, `count_day_preorder`, `start_time`, `stop_time`, `interval_time`, `interval_type`, `template_view`) VALUES
 (1, 0, 0, 6, '12:00', '23:59', 10, 0, 'list'),
 (2, 1, 1, 5, '09:00', '23:59', 60, 0, 'celendar');
 
--- --------------------------------------------------------
-
-
---
--- Структура таблицы `settings_sms`
---
-
-CREATE TABLE `settings_sms` (
-  `id` int(11) NOT NULL,
-  `login_sms` text NOT NULL,
-  `password_sms` text NOT NULL,
-  `url_json` text NOT NULL,
-  `API_KEY` text NOT NULL,
-  `SenderName` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
---
--- Дамп данных таблицы `settings_sms`
---
-
 INSERT INTO `settings_sms` (`id`, `login_sms`, `password_sms`, `url_json`, `API_KEY`, `SenderName`) VALUES
 (1, 'login', 'password', 'https://smsc.ru/sys/send.php', '', ''),
 (2, '', '', '', 'trtr', 'yyy');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_theme_class`
---
-
-CREATE TABLE `settings_theme_class` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `title` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Группы (классы и идентификаторы) для CSS оформления темы шаб';
-
---
--- Дамп данных таблицы `settings_theme_class`
---
 
 INSERT INTO `settings_theme_class` (`id`, `name`, `title`, `active`) VALUES
 (1, ':root', 'Основные цвета сайта', 1),
@@ -756,44 +673,11 @@ INSERT INTO `settings_theme_class` (`id`, `name`, `title`, `active`) VALUES
 (6, ':root', 'Логотип Картинка', 1),
 (7, ':root', 'Логотип Блок', 1);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_theme_group`
---
-
-CREATE TABLE `settings_theme_group` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_theme_group`
---
-
 INSERT INTO `settings_theme_group` (`id`, `name`, `active`) VALUES
 (1, 'Настройки цвета', 1),
 (2, 'Настройки шрифта', 1),
 (3, 'Настройки иконок', 1),
 (4, 'Настройки Логотипа', 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_theme_type_value`
---
-
-CREATE TABLE `settings_theme_type_value` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `title` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Типы значений (текст, номер, проценты и тд)';
-
---
--- Дамп данных таблицы `settings_theme_type_value`
---
 
 INSERT INTO `settings_theme_type_value` (`id`, `name`, `title`, `active`) VALUES
 (1, '', 'Текст', 1),
@@ -804,31 +688,6 @@ INSERT INTO `settings_theme_type_value` (`id`, `name`, `title`, `active`) VALUES
 (6, 'vw', 'VW', 1),
 (7, '', 'Цвет', 1),
 (8, '', 'Иконка', 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `settings_theme_value`
---
-
-CREATE TABLE `settings_theme_value` (
-  `id` int(11) NOT NULL,
-  `id_group` int(11) NOT NULL DEFAULT '1',
-  `id_class` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `value` text NOT NULL,
-  `positionX` text,
-  `positionY` text,
-  `positionXHover` text,
-  `positionYHover` text,
-  `title` text NOT NULL,
-  `type_value` int(11) NOT NULL DEFAULT '1',
-  `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `settings_theme_value`
---
 
 INSERT INTO `settings_theme_value` (`id`, `id_group`, `id_class`, `name`, `value`, `positionX`, `positionY`, `positionXHover`, `positionYHover`, `title`, `type_value`, `active`) VALUES
 (1, 1, 1, '--default-color', '#ff183f', NULL, NULL, NULL, NULL, 'Основной цвет пассив', 7, 1),
@@ -925,247 +784,46 @@ INSERT INTO `settings_theme_value` (`id`, `id_group`, `id_class`, `name`, `value
 (94, 3, 5, '--default-icon-leftmenu-mobile-hover', '/images/system_icons/file_10.png', 'cenetr', 'right', NULL, NULL, 'Стрелочка левого меню моб версия - актив', 8, 1),
 (95, 3, 5, '--default-icon-product-diameter', '/images/diameter_2.png', 'center', 'center', NULL, NULL, 'Иконка диаметр', 8, 1);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `sitemap`
---
-
-CREATE TABLE `sitemap` (
-  `id` int(11) NOT NULL,
-  `title` text NOT NULL,
-  `url` text NOT NULL,
-  `id_pages` int(11) NOT NULL,
-  `type` text NOT NULL,
-  `active` int(11) NOT NULL,
-  `children` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `slider_footer`
---
-
-CREATE TABLE `slider_footer` (
-  `id` int(11) NOT NULL,
-  `img` text NOT NULL,
-  `link` text NOT NULL,
-  `active` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `slide_header`
---
-
-CREATE TABLE `slide_header` (
-  `id` int(11) NOT NULL,
-  `type` text NOT NULL,
-  `img` text NOT NULL COMMENT 'Фоновая картинка',
-  `text` text NOT NULL COMMENT 'Текст в слайде',
-  `time_scroll` int(11) NOT NULL COMMENT 'Время прокрутки',
-  `active` int(11) NOT NULL COMMENT 'Вклвыкл слайд, 0 -выкл, 1 - вкл',
-  `orders` int(11) NOT NULL COMMENT 'Сортировка',
-  `type_slider` int(11) NOT NULL DEFAULT '0',
-  `show_mini_app` int(11) NOT NULL DEFAULT '0',
-  `time_start` int(11) NOT NULL DEFAULT '0',
-  `limit_time` int(11) NOT NULL DEFAULT '0',
-  `time_stop` int(11) NOT NULL DEFAULT '0',
-  `city_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `sms_list`
---
-
-CREATE TABLE `sms_list` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `phone` text NOT NULL,
-  `results` text NOT NULL,
-  `time` int(11) NOT NULL,
-  `city_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
-
---
--- Структура таблицы `status_in_FP_order`
---
-
-CREATE TABLE `status_in_FP_order` (
-  `id` int(11) NOT NULL,
-  `id_zakaz` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_affiliate` int(11) NOT NULL,
-  `id_dot` int(11) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `load_FP_status` varchar(255) NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `messageJson` text NOT NULL,
-  `city_id` int(11) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `status_orders_list`
---
-
-CREATE TABLE `status_orders_list` (
-  `id` int(11) NOT NULL,
-  `id_orderFP` int(11) NOT NULL,
-  `id_order` int(11) NOT NULL,
-  `date_p` varchar(255) NOT NULL,
-  `time_p` varchar(255) NOT NULL,
-  `date_unix` int(11) NOT NULL,
-  `status` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `street_bind`
---
-
-CREATE TABLE `street_bind` (
-  `id` int(11) NOT NULL,
-  `id_city` int(11) NOT NULL,
-  `id_locality` int(11) NOT NULL,
-  `title` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `template_messages`
---
-
-CREATE TABLE `template_messages` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `text` text NOT NULL,
-  `type_template` int(11) NOT NULL,
-  `shortcodes` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `template_messages`
---
-
 INSERT INTO `template_messages` (`id`, `name`, `text`, `type_template`, `shortcodes`) VALUES
 (1, 'Успешная регистрация', 'Ваш пароль: [{user_password}]', 1, 'Ваш пароль [{user_password}]'),
-(2, 'Успешный заказ(клиенту)', 'Здравствуйте [{user_name}] Вы сделали заказ на сайте [{site_link}]\nЗаказ №[{number_zakaz}].\nА вот список того что вы заказали и итоговая стоимость.\n[{list_zakaz}]\n\nПисьмо сформировано автоматически. Отвечать на него не нужно.\nОтказаться от email уведомлений Вы можете в личном кабинете.', 0, 'Имя: [{user_name}] <br> Ссылка на сайт: [{site_link}] <br> Номер заказа: [{number_zakaz}] <br> Список заказаных товаров: [{list_zakaz}] <br>'),
-(3, 'Успешный заказ(менеджеру)', 'Имя: [{user_name}]\nТелефон: [{user_phone}]\nEmail: [{user_email}]\nАдрес доставки: [{user_adres}]\nТип оплаты: [{type_oplata}]\nКомментарий: [{users_comments}]\n[{list_zakaz}]\n\nПисьмо сформировано автоматически. Отвечать на него не нужно.', 0, 'Имя: [{user_name}] <br> \nТелефон: [{user_phone}] <br> \nEmail: [{user_email}] <br> \nАдрес доставки: [{user_adres}] <br> \nТип оплаты: [{type_oplata}] <br> \nКомментарий: [{users_comments}] <br> \nКол-во персон: [{count_person}] <br> \nСписок заказанных товаров: [{list_zakaz}] <br>'),
+(2, 'Успешный заказ(клиенту)', 'Здравствуйте [{user_name}] Вы сделали заказ на сайте [{site_link}]
+Заказ №[{number_zakaz}].
+А вот список того что вы заказали и итоговая стоимость.
+[{list_zakaz}]
+
+Письмо сформировано автоматически. Отвечать на него не нужно.
+Отказаться от email уведомлений Вы можете в личном кабинете.', 0, 'Имя: [{user_name}] <br> Ссылка на сайт: [{site_link}] <br> Номер заказа: [{number_zakaz}] <br> Список заказаных товаров: [{list_zakaz}] <br>'),
+(3, 'Успешный заказ(менеджеру)', 'Имя: [{user_name}]
+Телефон: [{user_phone}]
+Email: [{user_email}]
+Адрес доставки: [{user_adres}]
+Тип оплаты: [{type_oplata}]
+Комментарий: [{users_comments}]
+[{list_zakaz}]
+
+Письмо сформировано автоматически. Отвечать на него не нужно.', 0, 'Имя: [{user_name}] <br> 
+Телефон: [{user_phone}] <br> 
+Email: [{user_email}] <br> 
+Адрес доставки: [{user_adres}] <br> 
+Тип оплаты: [{type_oplata}] <br> 
+Комментарий: [{users_comments}] <br> 
+Кол-во персон: [{count_person}] <br> 
+Список заказанных товаров: [{list_zakaz}] <br>'),
 (4, 'Восстановление пароля', 'Ваш старый пароль: [{user_password}]', 1, 'Пароль [{user_password}]'),
 (5, 'Успешный заказ СМС', 'Здравствуйте. Ваш заказ успешно принят. [NAMECompany]', 1, 'Номер заказа: [{number_zakaz}]'),
 (6, 'Успешная оплата(менеджер)', 'Номер заказа: [{number_zakaz}] Сумма заказа: [{summa}]', 0, 'Номер заказа: [{number_zakaz}] <br> Сумма итого [{summa}]'),
 (7, 'Email для отправки (менеджер)', 'uk091@yandex.ru', 3, ''),
 (8, 'Успешная оплата СМС', 'Ваш заказ №[{number_zakaz}] оплачен!', 1, 'Номер заказа: [{number_zakaz}]');
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `test_chekurl`
---
-
-CREATE TABLE `test_chekurl` (
-  `id` int(11) NOT NULL,
-  `date` text NOT NULL,
-  `invice` text NOT NULL,
-  `all_param` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `threeFroTwo_Category`
---
-
-CREATE TABLE `threeFroTwo_Category` (
-  `id` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL,
-  `type_sale` int(11) NOT NULL DEFAULT '0',
-  `title_one` text NOT NULL,
-  `title_two` text NOT NULL,
-  `title_five` text NOT NULL,
-  `title_all` text NOT NULL,
-  `time_start` int(11) NOT NULL,
-  `time_stop` int(11) NOT NULL,
-  `date_start` int(11) NOT NULL,
-  `date_stop` int(11) NOT NULL,
-  `active` int(11) NOT NULL,
-  `city_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `threeFroTwo_Category`
---
-
 INSERT INTO `threeFroTwo_Category` (`id`, `id_category`, `type_sale`, `title_one`, `title_two`, `title_five`, `title_all`, `time_start`, `time_stop`, `date_start`, `date_stop`, `active`, `city_id`) VALUES
 (1, 41, 0, 'пицца', 'пиццы', 'пицц', 'пицца', 0, 0, 1622494800, 1622581140, 0, 0),
 (2, 41, 0, 'пицца', 'пиццы', 'пицц', 'пицца', 0, 0, 1622494800, 1622581140, 0, 1),
 (3, 41, 0, 'пицца', 'пиццы', 'пицц', 'пицца', 0, 0, 1622494800, 1622581140, 0, 4);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `threeFroTwo_ProductList`
---
-
-CREATE TABLE `threeFroTwo_ProductList` (
-  `id` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `id_category` int(11) NOT NULL,
-  `type_product` int(11) NOT NULL,
-  `orders` int(11) NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '0',
-  `deleted` int(11) NOT NULL DEFAULT '0',
-  `city_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `type_category`
---
-
-CREATE TABLE `type_category` (
-  `id` int(11) NOT NULL,
-  `type_categorys` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `type_category`
---
-
 INSERT INTO `type_category` (`id`, `type_categorys`) VALUES
 (1, 'small:Малая|sred:Средняя|big:Большая'),
 (2, 'small:Малый|sred:Средний|big:Большой'),
 (3, 'slivki:Сливочный|tomat:Томатный|chees:Сырный');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `units`
---
-
-CREATE TABLE `units` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `unit` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `units`
---
 
 INSERT INTO `units` (`id`, `name`, `unit`) VALUES
 (1, 'Граммы', 'гр'),
@@ -1176,78 +834,41 @@ INSERT INTO `units` (`id`, `name`, `unit`) VALUES
 (6, 'Миллиметры', 'мм'),
 (8, 'Количество', 'шт');
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL COMMENT 'Порядковый номер',
-  `id_UserVK` int(11) NOT NULL DEFAULT '0',
-  `login` varchar(255) NOT NULL COMMENT 'Логин',
-  `password` varchar(255) NOT NULL COMMENT 'Пароль',
-  `name` text NOT NULL COMMENT 'Имя',
-  `last_name` text NOT NULL COMMENT 'Фамилия',
-  `email` text NOT NULL COMMENT 'Email клиента',
-  `phone` text NOT NULL COMMENT 'Телефон клиента',
-  `birthday` text NOT NULL COMMENT 'День рождения',
-  `date_reg` int(11) NOT NULL COMMENT 'Дата регистранции',
-  `points` int(11) NOT NULL COMMENT 'Накопленные балы',
-  `sms_notifi` int(11) NOT NULL DEFAULT '0',
-  `email_notifi` int(11) NOT NULL DEFAULT '0',
-  `menedjer` int(11) NOT NULL,
-  `user_group` int(11) NOT NULL DEFAULT '0',
-  `startSumBonus` int(11) NOT NULL DEFAULT '0',
-  `dateLastOrder` int(11) NOT NULL DEFAULT '0',
-  `dateLastNoticeFromOrderInfo` int(11) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Данные о пользователе и его накопленных баллах';
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `usersPoints`
---
-
-CREATE TABLE `usersPoints` (
-  `id` int(11) NOT NULL,
-  `id_Point` int(11) NOT NULL,
-  `PinCode` varchar(255) DEFAULT NULL,
-  `json` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `usersPoints`
---
-
 INSERT INTO `usersPoints` (`id`, `id_Point`, `PinCode`, `json`, `active`) VALUES
 (1, 2, '0000', '[]', 1),
 (2, 2, '0001', '[]', 1),
 (3, 3, '0002', '[]', 1),
 (4, 4, '0003', '[]', 1);
 
--- --------------------------------------------------------
-
---
--- Структура таблицы `user_group`
---
-
-CREATE TABLE `user_group` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `active` int(11) NOT NULL DEFAULT '1',
-  `deleted` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `user_group`
---
-
 INSERT INTO `user_group` (`id`, `title`, `description`, `active`, `deleted`) VALUES
 (1, 'Администраторы', 'Сотрудники и лица, относящиеся к организации', 1, 0);
 
--- --------------------------------------------------------
+INSERT INTO `VKApiSettings` (`id`, `id_city`, `token`, `active`) VALUES
+(1, 1, 'efe7f60d48789', 1),
+(2, 4, '6658c54dcf08', 1);
 
-";
+INSERT INTO `VKMarketSettings` (`id`, `city_id`, `id_user`, `id_owner`, `id_group`, `secretKey`, `code`, `accessToken`, `time_life_token`, `active`, `deleted`) VALUES
+(1, 1, 0, 0, 0, '0', '0', NULL, 0, 1, 0);
+
+INSERT INTO `worker_users` (`id`, `login`, `password`, `name`, `lastname`, `access`, `paymentReturn`, `city`) VALUES
+(1, '{{ADMIN_LOGIN}}', '{{ADMIN_PASSWORD}}', 'Главный', 'Администратор', 1, 0, 1),
+(2, 'BeeWeb', 'pirog4321', 'Доступ', 'BeeWeb', 0, 0, 0),
+(3, 'SuperManager', 'SuperPassword', 'Менеджер', 'Работа с клиентами', 0, 0, 1),
+(4, 'PointsAll', 'PassPointsAll', 'Торговая точка', 'Все', 5, 0, 1),
+(5, 'PointsOperator', 'PassPointsOperator', 'Торговая точка', 'Операторы', 7, 0, 1),
+(18, 'AdminEl', 'ElPassword', 'Админ', 'Салехард', 1, 0, 1);
+
+INSERT INTO `yandex_kassa` (`id`, `shopId`, `scid`, `checkUrl`, `avisoUrl`, `successUrl`, `shopFailUrl`, `shopPassword`, `status`, `url_data`) VALUES
+(1, 0, 0, 'curentURL_status.php', 'status_payments.php', 'index.php?payments_ok=ok_pay', '/', 'Pass', 'real', 'https://money.yandex.ru/eshop.xml'),
+(2, 88133, 551211, 'curentURL_status.php', 'status_payments.php', 'index.php?payments_ok=ok_pay', '/', '', 'real', 'https://money.yandex.ru/eshop.xml'),
+(3, 129665, 94823, 'curentURL_status.php', 'status_payments.php', 'index.php?payments_ok=ok_pay', '/', '', 'test', 'https://demomoney.yandex.ru/eshop.xml');
+
+INSERT INTO `zakaz_type` (`id`, `title`, `latinica`, `active`) VALUES
+(1, 'На сайте', 'site', 0),
+(2, 'Из Вконтакте', 'Vkontakte', 0),
+(3, 'В заведении', 'Zavedenie', 0),
+(4, 'По телефону', 'Phone', 0),
+(5, 'В приложении', 'APP', 0),
+(6, 'VK Mini apps', 'VK Mini apps', 0),
+(9, 'iOS MobileApp', 'iOS MobileApp', 1),
+(10, 'Android MobileApp', 'Android MobileApp', 1);

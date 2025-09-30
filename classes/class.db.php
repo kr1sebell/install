@@ -657,13 +657,16 @@ class SafeMySQL
 
 }
 
-$db=new SafeMySQL(
-array(
-		'user'      => $users_db,
-		'pass'      => $password_db,
-		'db'        => $data_base_name,
-    'charset' => 'utf8mb4')
-);
+$configOptions = array_filter([
+    'host' => $host_db ?? null,
+    'port' => isset($port_db) ? (int)$port_db : null,
+    'user' => $users_db ?? null,
+    'pass' => $password_db ?? null,
+    'db' => $data_base_name ?? null,
+    'charset' => 'utf8mb4',
+]);
+
+$db = new SafeMySQL($configOptions);
 
 function hsc($str){
 	return str_replace(array('?i','?s','?n','?a','?u','?p'),'',htmlspecialchars($str));
