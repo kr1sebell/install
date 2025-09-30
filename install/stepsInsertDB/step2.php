@@ -273,3 +273,5 @@ CREATE TABLE `config_sberbank_api` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 ";
+
+return $Query2;

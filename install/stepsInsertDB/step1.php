@@ -540,3 +540,5 @@ CREATE TABLE `city_bind` (
   `id_affilate` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ";
+
+return $Query1;
