@@ -346,8 +346,8 @@ CREATE TABLE `catalog` (
   `text` text NOT NULL,
   `descr` text NOT NULL,
   `price` varchar(255) NOT NULL,
-  `priceFrom` varchar(255) NOT NULL,
-  `priceFromCount` int(11) NOT NULL,
+  `priceFrom` int(11) NOT NULL DEFAULT '0',
+  `priceFromCount` int(11) NOT NULL DEFAULT '0',
   `vess` varchar(255) NOT NULL,
   `one_height` text NOT NULL,
   `one_diameter` text NOT NULL,
@@ -385,8 +385,6 @@ CREATE TABLE `catalog` (
   `modifyFromCategory` int(11) NOT NULL DEFAULT '0' COMMENT 'Модификаторы от категории',
   `must_modify` int(11) NOT NULL DEFAULT '0' COMMENT 'Должен присутствовать модификатор',
   `count_must_modify` int(11) NOT NULL DEFAULT '1' COMMENT 'Кол-во обязательных модификаторов',
-  `priceFrom` int(11) NOT NULL DEFAULT '0',
-  `priceFromCount` int(11) NOT NULL DEFAULT '0',
   `idVkProduct` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -549,7 +547,6 @@ CREATE TABLE `city_bind` (
   `title_lat` text NOT NULL,
   `id_affilate` varchar(255) NOT NULL,
   `UTC_Hourse` varchar(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ";
 
