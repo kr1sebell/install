@@ -28,7 +28,11 @@ $step2Values = array(
     'CITY_REGION' => '',
     'CITY_BIND' => '',
     'CITY_BIND_LAT' => '',
-    'PHONE_HEADER' => ''
+    'PHONE_HEADER' => '',
+    'YANDEX_API_KEY' => '',
+    'POINT_ADDRESS' => '',
+    'POINT_LAT' => '',
+    'POINT_LNG' => ''
 );
 $step2Labels = array(
     'NAME_COMPANY' => 'Наименование компании',
@@ -37,7 +41,11 @@ $step2Labels = array(
     'CITY_REGION' => 'Регион / Область',
     'CITY_BIND' => 'Город',
     'CITY_BIND_LAT' => 'Город (латиницей)',
-    'PHONE_HEADER' => 'Телефон для шапки сайта'
+    'PHONE_HEADER' => 'Телефон для шапки сайта',
+    'YANDEX_API_KEY' => 'API ключ Яндекс.Карт',
+    'POINT_ADDRESS' => 'Адрес точки продаж',
+    'POINT_LAT' => 'Широта точки продаж',
+    'POINT_LNG' => 'Долгота точки продаж'
 );
 
 function installer_sanitize($value)
@@ -179,6 +187,16 @@ if (!empty($_POST['SITE_DATA_START']) && $dbConfigReady && !$installationComplet
             $title = isset($step2Labels[$key]) ? $step2Labels[$key] : $key;
             $errors[] = 'Поле «' . $title . '» обязательно для заполнения.';
         }
+    }
+
+    if ($step2Values['POINT_LAT'] !== '' && $step2Values['POINT_LNG'] !== '') {
+        if (!is_numeric($step2Values['POINT_LAT']) || !is_numeric($step2Values['POINT_LNG'])) {
+            $errors[] = 'Не удалось определить координаты точки продаж. Уточните адрес и установите маркер на карте.';
+        }
+    }
+
+    if ($step2Values['POINT_LAT'] === '' || $step2Values['POINT_LNG'] === '') {
+        $errors[] = 'Укажите адрес точки продаж и установите точку на карте, чтобы сохранить координаты.';
     }
 
     if (!empty($errors)) {
@@ -335,6 +353,15 @@ $stepTitles = array(
             box-shadow: none;
             transform: none;
         }
+        .btn-secondary {
+            background: #ffffff;
+            color: #4c51bf;
+            border: 1px solid #4c51bf;
+        }
+        .btn-secondary:hover {
+            background: #4c51bf;
+            color: #ffffff;
+        }
         .modules-summary {
             background: #f8fafc;
             border-radius: 12px;
@@ -354,6 +381,65 @@ $stepTitles = array(
             padding: 6px 0;
             font-size: 14px;
             color: #475569;
+        }
+        .map-section {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+        .map-section h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+        .map-section__description {
+            margin: 0 0 16px;
+            font-size: 14px;
+            color: #475569;
+        }
+        .map-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-end;
+            margin-bottom: 16px;
+        }
+        .map-fields__item {
+            flex: 1 1 240px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 14px;
+            color: #334155;
+        }
+        .map-fields__item input {
+            width: 100%;
+        }
+        .map-fields__button {
+            margin-left: auto;
+        }
+        .map-container {
+            width: 100%;
+            height: 320px;
+            border-radius: 12px;
+            background: #e2e8f0;
+            border: 1px solid #cbd5f5;
+            overflow: hidden;
+        }
+        .map-message {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #475569;
+        }
+        .map-message--success {
+            color: #16a34a;
+        }
+        .map-message--error {
+            color: #dc2626;
+        }
+        .map-message--info {
+            color: #2563eb;
         }
         .final-message {
             text-align: center;
@@ -430,6 +516,13 @@ $stepTitles = array(
                 align-items: stretch;
             }
             .btn {
+                width: 100%;
+            }
+            .map-fields {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .map-fields__button {
                 width: 100%;
             }
         }
@@ -513,6 +606,25 @@ $stepTitles = array(
                             Телефон для шапки сайта
                             <input type="text" name="PHONE_HEADER" value="<?php echo installer_sanitize($step2Values['PHONE_HEADER']); ?>" required>
                         </label>
+                    </div>
+                    <div class="map-section">
+                        <h3>Настройка точки продаж</h3>
+                        <p class="map-section__description">Введите адрес и API ключ Яндекс.Карт. По адресу на карте автоматически появится маркер, а координаты сохранятся для точки продаж.</p>
+                        <div class="map-fields">
+                            <label class="map-fields__item">
+                                API ключ Яндекс-Карт
+                                <input type="text" name="YANDEX_API_KEY" value="<?php echo installer_sanitize($step2Values['YANDEX_API_KEY']); ?>" placeholder="Введите ключ API" required>
+                            </label>
+                            <label class="map-fields__item">
+                                Адрес точки продаж
+                                <input type="text" name="POINT_ADDRESS" id="point-address" value="<?php echo installer_sanitize($step2Values['POINT_ADDRESS']); ?>" placeholder="Город, улица, дом" required>
+                            </label>
+                            <button type="button" class="btn btn-secondary map-fields__button" id="point-geocode-button">Показать на карте</button>
+                        </div>
+                        <div id="yandex-map" class="map-container"></div>
+                        <div id="point-message" class="map-message"></div>
+                        <input type="hidden" name="POINT_LAT" id="point-lat" value="<?php echo installer_sanitize($step2Values['POINT_LAT']); ?>">
+                        <input type="hidden" name="POINT_LNG" id="point-lng" value="<?php echo installer_sanitize($step2Values['POINT_LNG']); ?>">
                     </div>
                     <div class="actions">
                         <button class="btn" type="submit" name="SITE_DATA_START" value="1">Запустить установку</button>
@@ -606,6 +718,231 @@ $stepTitles = array(
             closeModal();
         }
     });
+})();
+
+(function() {
+    var apiKeyInput = document.querySelector('input[name="YANDEX_API_KEY"]');
+    var addressInput = document.getElementById('point-address');
+    var latInput = document.getElementById('point-lat');
+    var lngInput = document.getElementById('point-lng');
+    var geocodeButton = document.getElementById('point-geocode-button');
+    var mapContainer = document.getElementById('yandex-map');
+    var messageEl = document.getElementById('point-message');
+
+    if (!apiKeyInput || !addressInput || !latInput || !lngInput || !geocodeButton || !mapContainer || !messageEl) {
+        return;
+    }
+
+    var mapInstance = null;
+    var placemark = null;
+    var yandexMapsPromise = null;
+    var yandexMapsKeyLoaded = null;
+    var mapsApi = null;
+
+    var DEFAULT_COORDS = [55.751244, 37.618423];
+
+    function showMessage(text, type) {
+        messageEl.textContent = text || '';
+        messageEl.className = 'map-message' + (type ? ' map-message--' + type : '');
+    }
+
+    if (!latInput.value || !lngInput.value) {
+        showMessage('Укажите адрес и нажмите «Показать на карте», чтобы получить координаты точки продаж.', 'info');
+    }
+
+    function ensureYandexMaps() {
+        var key = apiKeyInput.value.trim();
+        if (!key) {
+            showMessage('Укажите API-ключ Яндекс.Карт, чтобы инициализировать карту.', 'error');
+            return Promise.reject(new Error('missing-key'));
+        }
+        if (yandexMapsKeyLoaded && yandexMapsKeyLoaded !== key) {
+            showMessage('Карта уже загружена с другим API-ключом. Перезагрузите страницу, чтобы использовать новый ключ.', 'error');
+            return Promise.reject(new Error('key-mismatch'));
+        }
+        if (window.ymaps && typeof window.ymaps.Map === 'function') {
+            return Promise.resolve(window.ymaps);
+        }
+        if (yandexMapsPromise) {
+            return yandexMapsPromise;
+        }
+
+        yandexMapsKeyLoaded = key;
+        showMessage('Загружается карта…', 'info');
+
+        yandexMapsPromise = new Promise(function(resolve, reject) {
+            var script = document.createElement('script');
+            script.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=' + encodeURIComponent(key);
+            script.async = true;
+            script.onload = function() {
+                if (!window.ymaps) {
+                    yandexMapsPromise = null;
+                    showMessage('Не удалось инициализировать Яндекс.Карты. Повторите попытку позже.', 'error');
+                    reject(new Error('ymaps-not-loaded'));
+                    return;
+                }
+                window.ymaps.ready(function() {
+                    resolve(window.ymaps);
+                });
+            };
+            script.onerror = function() {
+                yandexMapsPromise = null;
+                yandexMapsKeyLoaded = null;
+                showMessage('Не удалось загрузить Яндекс.Карты. Проверьте API-ключ и соединение с сетью.', 'error');
+                reject(new Error('script-error'));
+            };
+            document.head.appendChild(script);
+        });
+
+        return yandexMapsPromise;
+    }
+
+    function updateCoords(coords, silent) {
+        if (!Array.isArray(coords) || coords.length < 2) {
+            return;
+        }
+        var lat = parseFloat(coords[0]);
+        var lng = parseFloat(coords[1]);
+        if (isNaN(lat) || isNaN(lng)) {
+            return;
+        }
+        latInput.value = lat.toFixed(6);
+        lngInput.value = lng.toFixed(6);
+        if (!silent) {
+            showMessage('Координаты обновлены по положению маркера.', 'info');
+        }
+    }
+
+    function reverseGeocode(coords) {
+        if (!mapsApi || !Array.isArray(coords) || coords.length < 2) {
+            return;
+        }
+
+        mapsApi.geocode(coords, { results: 1 }).then(function(res) {
+            var geoObject = res.geoObjects.get(0);
+            if (!geoObject) {
+                showMessage('Не удалось определить адрес по выбранной точке. Уточните расположение маркера.', 'error');
+                return;
+            }
+
+            var addressLine = geoObject.getAddressLine();
+            if (addressLine) {
+                addressInput.value = addressLine;
+            }
+            showMessage('Адрес и координаты обновлены по положению маркера.', 'success');
+        }, function() {
+            showMessage('Не удалось выполнить обратное геокодирование. Попробуйте снова.', 'error');
+        });
+    }
+
+    function initializeMap(ymaps) {
+        mapsApi = ymaps;
+        if (mapInstance) {
+            return;
+        }
+
+        var lat = parseFloat(latInput.value);
+        var lng = parseFloat(lngInput.value);
+        var hasCoords = !isNaN(lat) && !isNaN(lng);
+        var startCoords = hasCoords ? [lat, lng] : DEFAULT_COORDS;
+
+        mapInstance = new ymaps.Map('yandex-map', {
+            center: startCoords,
+            zoom: hasCoords ? 15 : 12,
+            controls: ['zoomControl', 'searchControl']
+        });
+
+        placemark = new ymaps.Placemark(startCoords, {}, {
+            draggable: true
+        });
+        mapInstance.geoObjects.add(placemark);
+
+        placemark.events.add('dragend', function() {
+            var newCoords = placemark.geometry.getCoordinates();
+            updateCoords(newCoords, true);
+            reverseGeocode(newCoords);
+        });
+
+        mapInstance.events.add('click', function(event) {
+            var newCoords = event.get('coords');
+            if (placemark) {
+                placemark.geometry.setCoordinates(newCoords);
+            }
+            updateCoords(newCoords, true);
+            reverseGeocode(newCoords);
+        });
+
+        if (!hasCoords) {
+            updateCoords(startCoords, true);
+        }
+
+        showMessage('Укажите адрес и нажмите «Показать на карте», чтобы получить координаты точки продаж.', 'info');
+    }
+
+    function geocodeAddress() {
+        ensureYandexMaps().then(function(ymaps) {
+            initializeMap(ymaps);
+            var address = addressInput.value.trim();
+            if (!address) {
+                showMessage('Введите адрес точки продаж для поиска на карте.', 'error');
+                return;
+            }
+            showMessage('Ищем адрес…', 'info');
+            ymaps.geocode(address).then(function(res) {
+                var geoObject = res.geoObjects.get(0);
+                if (!geoObject) {
+                    showMessage('По введенному адресу ничего не найдено. Уточните адрес и попробуйте снова.', 'error');
+                    return;
+                }
+                var coords = geoObject.geometry.getCoordinates();
+                var displayAddress = geoObject.getAddressLine();
+                if (placemark) {
+                    placemark.geometry.setCoordinates(coords);
+                }
+                if (mapInstance) {
+                    mapInstance.setCenter(coords, 16, { duration: 300 });
+                }
+                if (displayAddress) {
+                    addressInput.value = displayAddress;
+                }
+                updateCoords(coords, true);
+                showMessage('Адрес найден, координаты сохранены автоматически.', 'success');
+            }, function() {
+                showMessage('Не удалось выполнить геокодирование. Повторите попытку позже.', 'error');
+            });
+        }).catch(function(error) {
+            if (error && error.message === 'missing-key') {
+                apiKeyInput.focus();
+            }
+        });
+    }
+
+    geocodeButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        geocodeAddress();
+    });
+
+    addressInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            geocodeAddress();
+        }
+    });
+
+    if (apiKeyInput.value.trim() && latInput.value && lngInput.value) {
+        ensureYandexMaps().then(function(ymaps) {
+            initializeMap(ymaps);
+            var lat = parseFloat(latInput.value);
+            var lng = parseFloat(lngInput.value);
+            if (!isNaN(lat) && !isNaN(lng) && placemark && mapInstance) {
+                var coords = [lat, lng];
+                placemark.geometry.setCoordinates(coords);
+                mapInstance.setCenter(coords, 15);
+            }
+        }).catch(function() {
+            // Ошибки загрузки карты уже отображаются пользователю.
+        });
+    }
 })();
 </script>
 </body>
