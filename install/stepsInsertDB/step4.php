@@ -223,3 +223,5 @@ CREATE TABLE `modal_block` (
   `typeDevice` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ";
+
+return $Query4;

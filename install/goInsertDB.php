@@ -1,7 +1,5 @@
 <?php
-//require_once $_SERVER['DOCUMENT_ROOT'].'/classes/class.db.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/config_db.php';
-
 
 $CityRegion = $_POST['CITY_REGION'];
 $CityTitle = $_POST['CITY_BIND'];
@@ -10,62 +8,97 @@ $SuitTitle = $_POST['NAME_SITE'];
 $SuitDescription = $_POST['DESCRIPTION_SITE'];
 $SuitPhoneHeader = $_POST['PHONE_HEADER'];
 
-require_once $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step1.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step2.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step3.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step4.php';
+$stepsDirectory = $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB';
+$stepFiles = glob($stepsDirectory.'/step*.{php,sql}', GLOB_BRACE);
+if ($stepFiles === false) {
+    $stepFiles = array();
+}
+natsort($stepFiles);
 
-$Query5 = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step5.sql');
-$Query6 = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step6.sql');
+$templateReplacements = array(
+    '{[NAMECompany]}' => isset($_POST['NAME_COMPANY']) ? $_POST['NAME_COMPANY'] : '',
+    '{[CITYBINDTITLE]}' => isset($_POST['CITY_BIND']) ? $_POST['CITY_BIND'] : ''
+);
 
-$Query6 = str_replace("{[NAMECompany]}",$_POST['NAME_COMPANY'],$Query6);
-$Query6 = str_replace("{[CITYBINDTITLE]}",$_POST['CITY_BIND'],$Query6);
-
-require_once $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step7.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/install/stepsInsertDB/step8.php';
-
-$AllQuery = array(
-    $Query1,
-    $Query2,
-    $Query3,
-    $Query4,
-    $Query5,
-    $Query6,
-    $Query7,
-    $Query8
-)
-;
-
-
-foreach ($AllQuery as $number=>$Qur) {
-    $link = mysqli_connect("localhost", $users_db, $password_db, $data_base_name);
-
-    /* запускаем мультизапрос */
-    if (mysqli_multi_query($link, $Qur)) {
-        do {
-            /* получаем первый результирующий набор */
-            if ($result = mysqli_store_result($link)) {
-                while ($row = mysqli_fetch_row($result)) {
-                    printf("%s\n", $row[0]);
-                }
-                mysqli_free_result($result);
-            }
-            /* печатаем разделитель */
-            if (mysqli_more_results($link)) {
-                printf($number+1 ."-----------------\n<br>");
-            }
-        } while (mysqli_next_result($link));
+$querySteps = array();
+foreach ($stepFiles as $path) {
+    $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    $query = '';
+    if ($extension === 'php') {
+        $query = include $path;
+    } else {
+        $query = file_get_contents($path);
     }
-    /* закрываем соединение */
-    mysqli_close($link);
+    if ($query === false || $query === null) {
+        $query = '';
+    }
+    if ($query !== '') {
+        $query = str_replace(array_keys($templateReplacements), array_values($templateReplacements), $query);
+        $querySteps[] = array(
+            'label' => basename($path),
+            'sql' => $query
+        );
+    }
 }
 
+$results = array();
+$errors = array();
 
-//echo 'Шаг 1'; echo $db->query($Query1);
-//echo '<br>Шаг 2'; echo $db->query($Query2);
-//echo '<br>Шаг 3'; echo $db->query($Query3);
-//echo '<br>Шаг 4'; echo $db->query($Query4);
-//echo '<br>Шаг 5'; echo $db->query($Query5);
-//echo '<br>Шаг 6'; echo $db->query($Query6);
-//echo '<br>Шаг 7'; echo $db->query($Query7);
-//echo '<br>Шаг 8'; echo $db->query($Query8);
+foreach ($querySteps as $index => $step) {
+    $stepResult = array(
+        'label' => $step['label'],
+        'success' => false,
+        'error' => ''
+    );
+
+    $link = @mysqli_connect('localhost', $users_db, $password_db, $data_base_name);
+    if (!$link) {
+        $errorText = 'Ошибка подключения к базе данных: '.mysqli_connect_error();
+        $stepResult['error'] = $errorText;
+        $errors[] = $errorText;
+        $results[] = $stepResult;
+        break;
+    }
+
+    $sql = trim($step['sql']);
+    if ($sql === '') {
+        $stepResult['success'] = true;
+        $results[] = $stepResult;
+        mysqli_close($link);
+        continue;
+    }
+
+    if (mysqli_multi_query($link, $sql)) {
+        $stepResult['success'] = true;
+        while (true) {
+            if ($result = mysqli_store_result($link)) {
+                mysqli_free_result($result);
+            }
+            if (!mysqli_more_results($link)) {
+                break;
+            }
+            if (!mysqli_next_result($link)) {
+                $stepResult['success'] = false;
+                $stepResult['error'] = mysqli_error($link);
+                $errors[] = 'Ошибка выполнения шага '.($index + 1).': '.$stepResult['error'];
+                break;
+            }
+        }
+    } else {
+        $stepResult['error'] = mysqli_error($link);
+        $errors[] = 'Ошибка выполнения шага '.($index + 1).': '.$stepResult['error'];
+    }
+
+    mysqli_close($link);
+    $results[] = $stepResult;
+
+    if (!$stepResult['success']) {
+        break;
+    }
+}
+
+return array(
+    'success' => empty($errors),
+    'steps' => $results,
+    'errors' => $errors
+);

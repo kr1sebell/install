@@ -926,3 +926,5 @@ CREATE TABLE `list_summa_limit_preset` (
 
 -- --------------------------------------------------------
 ";
+
+return $Query3;

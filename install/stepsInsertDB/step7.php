@@ -1251,3 +1251,5 @@ INSERT INTO `user_group` (`id`, `title`, `description`, `active`, `deleted`) VAL
 -- --------------------------------------------------------
 
 ";
+
+return $Query7;
