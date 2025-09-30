@@ -737,6 +737,7 @@ $stepTitles = array(
     var placemark = null;
     var yandexMapsPromise = null;
     var yandexMapsKeyLoaded = null;
+    var mapsApi = null;
 
     var DEFAULT_COORDS = [55.751244, 37.618423];
 
@@ -812,7 +813,30 @@ $stepTitles = array(
         }
     }
 
+    function reverseGeocode(coords) {
+        if (!mapsApi || !Array.isArray(coords) || coords.length < 2) {
+            return;
+        }
+
+        mapsApi.geocode(coords, { results: 1 }).then(function(res) {
+            var geoObject = res.geoObjects.get(0);
+            if (!geoObject) {
+                showMessage('Не удалось определить адрес по выбранной точке. Уточните расположение маркера.', 'error');
+                return;
+            }
+
+            var addressLine = geoObject.getAddressLine();
+            if (addressLine) {
+                addressInput.value = addressLine;
+            }
+            showMessage('Адрес и координаты обновлены по положению маркера.', 'success');
+        }, function() {
+            showMessage('Не удалось выполнить обратное геокодирование. Попробуйте снова.', 'error');
+        });
+    }
+
     function initializeMap(ymaps) {
+        mapsApi = ymaps;
         if (mapInstance) {
             return;
         }
@@ -835,7 +859,8 @@ $stepTitles = array(
 
         placemark.events.add('dragend', function() {
             var newCoords = placemark.geometry.getCoordinates();
-            updateCoords(newCoords);
+            updateCoords(newCoords, true);
+            reverseGeocode(newCoords);
         });
 
         mapInstance.events.add('click', function(event) {
@@ -843,7 +868,8 @@ $stepTitles = array(
             if (placemark) {
                 placemark.geometry.setCoordinates(newCoords);
             }
-            updateCoords(newCoords);
+            updateCoords(newCoords, true);
+            reverseGeocode(newCoords);
         });
 
         if (!hasCoords) {
