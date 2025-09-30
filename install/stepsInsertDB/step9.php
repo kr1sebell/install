@@ -298,9 +298,7 @@ CREATE TABLE `promokod_tpl` (
 
 -- --------------------------------------------------------
 
---
 -- Структура таблицы `status_in_FP_order_all`
---
 
 CREATE TABLE `status_in_FP_order_all` (
   `id` int(11) NOT NULL,
@@ -315,6 +313,222 @@ CREATE TABLE `status_in_FP_order_all` (
   `messageJson` text NOT NULL,
   `city_id` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `active_admin_sessions`
+--
+ALTER TABLE `active_admin_sessions`
+  ADD PRIMARY KEY (`session_id`);
+
+--
+-- Индексы таблицы `config_AlfaMerchant`
+--
+ALTER TABLE `config_AlfaMerchant`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_PayKeeper`
+--
+ALTER TABLE `config_PayKeeper`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_TinkoffMerchant`
+--
+ALTER TABLE `config_TinkoffMerchant`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_pixelcrm`
+--
+ALTER TABLE `config_pixelcrm`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_frontpad_order_statuses`
+--
+ALTER TABLE `config_frontpad_order_statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `hello_points_history`
+--
+ALTER TABLE `hello_points_history`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `notifications_manager`
+--
+ALTER TABLE `notifications_manager`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `send_order_sbis`
+--
+ALTER TABLE `send_order_sbis`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_tapLink`
+--
+ALTER TABLE `settings_tapLink`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_tapLink_button`
+--
+ALTER TABLE `settings_tapLink_button`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_Senler`
+--
+ALTER TABLE `settings_Senler`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_active_category`
+--
+ALTER TABLE `settings_active_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_yoomoney`
+--
+ALTER TABLE `settings_yoomoney`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `promokode_activate_attempt`
+--
+ALTER TABLE `promokode_activate_attempt`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `promokod_category`
+--
+ALTER TABLE `promokod_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `promokod_tpl`
+--
+ALTER TABLE `promokod_tpl`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `status_in_FP_order_all`
+--
+ALTER TABLE `status_in_FP_order_all`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для таблицы `config_AlfaMerchant`
+--
+ALTER TABLE `config_AlfaMerchant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_PayKeeper`
+--
+ALTER TABLE `config_PayKeeper`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_TinkoffMerchant`
+--
+ALTER TABLE `config_TinkoffMerchant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_pixelcrm`
+--
+ALTER TABLE `config_pixelcrm`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_frontpad_order_statuses`
+--
+ALTER TABLE `config_frontpad_order_statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `hello_points_history`
+--
+ALTER TABLE `hello_points_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `notifications_manager`
+--
+ALTER TABLE `notifications_manager`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `send_order_sbis`
+--
+ALTER TABLE `send_order_sbis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_tapLink`
+--
+ALTER TABLE `settings_tapLink`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_tapLink_button`
+--
+ALTER TABLE `settings_tapLink_button`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_Senler`
+--
+ALTER TABLE `settings_Senler`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_active_category`
+--
+ALTER TABLE `settings_active_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_yoomoney`
+--
+ALTER TABLE `settings_yoomoney`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `promokode_activate_attempt`
+--
+ALTER TABLE `promokode_activate_attempt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `promokod_category`
+--
+ALTER TABLE `promokod_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `promokod_tpl`
+--
+ALTER TABLE `promokod_tpl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `status_in_FP_order_all`
+--
+ALTER TABLE `status_in_FP_order_all`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+COMMIT;
 ";
 
 return $Query9;
