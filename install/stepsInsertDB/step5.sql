@@ -63,6 +63,30 @@ INSERT INTO `modal_template` (`id`, `title`, `code`, `style`, `active`) VALUES
 (3, 'Картинка слева', '<div style=\"position:relative;\"><div class=\"imageBlocModal\"><img src=\"{[imgModal]}\" style=\"max-width:100%;margin:auto;\" /></div><div class=\"rightBlockModal\"><div class=\"titleModalBlock\">{[titleModal]}</div><div class=\"textBlockModal\">{[textContent]}</div><div class=\"butonBlockModal\">{[nameButton]}</div></div></div>', '#blockContent{padding:0;overflow:hidden;max-width:650px;}\n.imageBlocModal{width:45%;padding: 0;overflow: hidden;float:left;max-height: 45%;}\n.imageBlocModal img{max-width:none !important;min-width:100%;height:100%;}\n.rightBlockModal{float:right;width:55%;height: 45%;position: relative;}\n.titleModalBlock{font-family: Bold;font-size: 19px;text-align: center;padding: 10px 0px;}\n.textBlockModal{padding: 20px 10px;font-size: 16px;text-align: center;}\n.butonBlockModal{padding: 10px 5%;text-align: center;background: #f2f2f2;position: absolute;\n    bottom: 0;\n    width: 90%;}\n.butonBlockModal button{font-size: 18px;font-family: BOLD;background: #f7c25a;border: 0px;border-radius: 15px;padding: 5px 30px;margin: 3px 0px;}\n', 1),
 (4, 'Картинка фоном 2', '<div><div class=\"imageBlocModal\" style=\"background:url({[imgModal]}) no-repeat;\"></div><div class=\"titleModalBlock\">{[titleModal]}</div><div class=\"textBlockModal\">{[textContent]}</div><div class=\"butonBlockModal\">{[nameButton]}</div></div>', '#blockContent{position:relative;color:#fff;border-radius:15px;overflow:hidden;border-radius:25px !important; padding:0 !important;}.imageBlocModal{width:100%;height:99%;position:absolute;top:0;left:0;z-index:-1;}.imageBlocModal:after{content:\"\";width:100%;height:100%;position:absolute;top:0;left:0;background:rgba(0,0,0,0.6);}.titleModalBlock{	font-family: Bold;    font-size: 19px;    text-align: center;    padding: 10px 0px;}.textBlockModal{	padding: 20px 10px;    font-size: 16px;    text-align: center;}.butonBlockModal{	padding: 10px 0px;    text-align: center;}.butonBlockModal button{	font-size: 18px;    font-family: BOLD;    background: #f7c25a;    border: 0px;    border-radius: 15px;    padding: 5px 30px;    margin: 3px 0px;}', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `modificationCompilation`
+--
+
+CREATE TABLE `modificationCompilation` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `id_city` int(11) NOT NULL,
+  `active` int(11) NOT NULL,
+  `deleted` int(11) NOT NULL,
+  `typeModifyList` int(11) NOT NULL DEFAULT '0',
+  `buttonModifyOpenModal` text NOT NULL,
+  `typeCountActiveModify` int(11) NOT NULL DEFAULT '0',
+  `countActiveModifyLimit` int(11) NOT NULL DEFAULT '1',
+  `typeModalModify` int(11) NOT NULL DEFAULT '0',
+  `countComboProductModal` int(11) NOT NULL DEFAULT '1',
+  `additionInfoPrint` text NOT NULL,
+  `additionInfoH` text NOT NULL,
+  `categoryModificationActive` int(11) NOT NULL DEFAULT '0',
+  `typeSumDiscountAllCategoryModification` int(11) NOT NULL DEFAULT '0',
+  `DiscountAllCategoryModification` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -86,7 +110,9 @@ CREATE TABLE `modificationProductList` (
   `active` int(11) NOT NULL DEFAULT '1',
   `sorts` int(11) NOT NULL DEFAULT '0',
   `deleted` int(11) NOT NULL DEFAULT '0',
-  `numberProductComboModify` int(11) NOT NULL DEFAULT '0'
+  `numberProductComboModify` int(11) NOT NULL DEFAULT '0',
+  `id_sbis` int(11) DEFAULT NULL,
+  `hierarchicalId` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -109,7 +135,8 @@ CREATE TABLE `modificationProductListCompiliation` (
   `activeDiscount` int(11) NOT NULL DEFAULT '0',
   `active` int(11) NOT NULL DEFAULT '1',
   `sorts` int(11) NOT NULL DEFAULT '0',
-  `deleted` int(11) NOT NULL DEFAULT '0'
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  `numberProductComboModify` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
@@ -148,6 +175,17 @@ CREATE TABLE `notification` (
 
 -- --------------------------------------------------------
 
+--
+-- Структура таблицы `notifications_manager`
+--
+
+CREATE TABLE `notifications_manager` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `session_id` varchar(255) DEFAULT NULL,
+  `received` tinyint(1) DEFAULT '0',
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Структура таблицы `notification_user_list`
 --

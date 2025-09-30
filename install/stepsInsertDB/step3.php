@@ -1,5 +1,26 @@
 <?php
 $Query3 = "
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `config_TinkoffMerchant`
+--
+
+CREATE TABLE `config_TinkoffMerchant` (
+  `id` int(11) NOT NULL,
+  `id_points` int(11) NOT NULL,
+  `url_api` text COMMENT 'url - для запросов, тестовый и боевой',
+  `login` text NOT NULL,
+  `password` text NOT NULL,
+  `active` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '0 - самовывоз, 1 - доставка',
+  `id_city` int(11) NOT NULL,
+  `token` text,
+  `type_data` int(11) NOT NULL COMMENT '0 - тестовые, 1 боевые'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 --
 -- Структура таблицы `cookie_token`
 --
@@ -57,26 +78,6 @@ CREATE TABLE `datePreorderListStop` (
   `active` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `datePreorderListStop`
---
-
-INSERT INTO `datePreorderListStop` (`id`, `date_false`, `start_time_false`, `stop_time_false`, `active`) VALUES
-(2, '2020-01-13', '04:00:00', '12:00:00', 1),
-(3, '2020-01-13', '04:00:00', '18:00:00', 1),
-(4, '2020-02-21', '00:00:00', '23:59:00', 1),
-(5, '2020-02-22', '00:00:00', '23:59:00', 1),
-(6, '2020-02-23', '00:00:00', '23:59:00', 1),
-(7, '2020-03-06', '00:00:00', '23:59:00', 1),
-(8, '2020-03-07', '00:00:00', '23:59:00', 1),
-(9, '2020-03-08', '00:00:00', '23:59:00', 1),
-(10, '2020-12-31', '00:00:00', '23:59:00', 1),
-(11, '2021-02-14', '00:00:00', '23:59:00', 1),
-(12, '2021-02-23', '00:00:00', '23:59:00', 1),
-(13, '2021-03-08', '00:00:00', '23:59:00', 1),
-(14, '2021-03-05', '00:00:00', '23:59:00', 1),
-(15, '2021-04-01', '00:00:00', '23:59:00', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -100,7 +101,8 @@ CREATE TABLE `dilivery_zones` (
   `type_map` int(11) NOT NULL DEFAULT '1',
   `time_delivered` int(11) NOT NULL DEFAULT '10',
   `time_pickup` int(11) NOT NULL DEFAULT '10',
-  `priorityTime` int(11) NOT NULL DEFAULT '0'
+  `priorityTime` int(11) NOT NULL DEFAULT '0',
+  `deleted` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -460,6 +462,7 @@ INSERT INTO `gift_list` (`id`, `city_id`, `title`, `min_price`, `sale_price`, `a
 
 CREATE TABLE `gift_setting` (
   `id` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL DEFAULT '0',
   `active` int(11) NOT NULL DEFAULT '0',
   `width` int(11) NOT NULL DEFAULT '5',
   `height` int(11) NOT NULL DEFAULT '100',
@@ -474,8 +477,8 @@ CREATE TABLE `gift_setting` (
 -- Дамп данных таблицы `gift_setting`
 --
 
-INSERT INTO `gift_setting` (`id`, `active`, `width`, `height`, `width_type`, `height_type`, `position`, `min_summa`, `max_summa`) VALUES
-(1, 1, 10, 300, 1, 1, 0, '0', '3400');
+INSERT INTO `gift_setting` (`id`, `id_city`, `active`, `width`, `height`, `width_type`, `height_type`, `position`, `min_summa`, `max_summa`) VALUES
+(1, 1, 1, 10, 300, 1, 1, 0, '0', '3400');
 
 -- --------------------------------------------------------
 
@@ -559,6 +562,20 @@ INSERT INTO `headmenu` (`id`, `name`, `url`, `active`, `orders`) VALUES
 (2, 'Акции', '/sale', 1, 2),
 (3, 'Контакты', '/kontakts', 1, 5),
 (4, 'Бонусы', '/points', 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `hello_points_history`
+--
+
+CREATE TABLE `hello_points_history` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL,
+  `count_points` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

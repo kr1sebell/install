@@ -207,15 +207,45 @@ ALTER TABLE `config`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `config_AlfaMerchant`
+--
+ALTER TABLE `config_AlfaMerchant`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `config_frontpad`
 --
 ALTER TABLE `config_frontpad`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `config_frontpad_order_statuses`
+--
+ALTER TABLE `config_frontpad_order_statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_PayKeeper`
+--
+ALTER TABLE `config_PayKeeper`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_pixelcrm`
+--
+ALTER TABLE `config_pixelcrm`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `config_sberbank_api`
 --
 ALTER TABLE `config_sberbank_api`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `config_TinkoffMerchant`
+--
+ALTER TABLE `config_TinkoffMerchant`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -364,6 +394,12 @@ ALTER TABLE `groups_ingredients`
 -- Индексы таблицы `headmenu`
 --
 ALTER TABLE `headmenu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `hello_points_history`
+--
+ALTER TABLE `hello_points_history`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -529,6 +565,12 @@ ALTER TABLE `modal_template`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `modificationCompilation`
+--
+ALTER TABLE `modificationCompilation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `modificationProductList`
 --
 ALTER TABLE `modificationProductList`
@@ -550,6 +592,12 @@ ALTER TABLE `news`
 -- Индексы таблицы `notification`
 --
 ALTER TABLE `notification`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `notifications_manager`
+--
+ALTER TABLE `notifications_manager`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -646,9 +694,27 @@ ALTER TABLE `promokod`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `promokode_activate_attempt`
+--
+ALTER TABLE `promokode_activate_attempt`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `promokod_actions`
 --
 ALTER TABLE `promokod_actions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `promokod_category`
+--
+ALTER TABLE `promokod_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `promokod_tpl`
+--
+ALTER TABLE `promokod_tpl`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -706,6 +772,12 @@ ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `send_order_sbis`
+--
+ALTER TABLE `send_order_sbis`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `session_data_voice_order`
 --
 ALTER TABLE `session_data_voice_order`
@@ -715,6 +787,12 @@ ALTER TABLE `session_data_voice_order`
 -- Индексы таблицы `settings_accounts`
 --
 ALTER TABLE `settings_accounts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_active_category`
+--
+ALTER TABLE `settings_active_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -754,9 +832,21 @@ ALTER TABLE `settings_preorder`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `settings_Senler`
+--
+ALTER TABLE `settings_Senler`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `settings_sms`
 --
 ALTER TABLE `settings_sms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_telegram`
+--
+ALTER TABLE `settings_telegram`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -781,6 +871,12 @@ ALTER TABLE `settings_theme_type_value`
 -- Индексы таблицы `settings_theme_value`
 --
 ALTER TABLE `settings_theme_value`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `settings_yoomoney`
+--
+ALTER TABLE `settings_yoomoney`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -817,6 +913,12 @@ ALTER TABLE `stats_code`
 -- Индексы таблицы `status_in_FP_order`
 --
 ALTER TABLE `status_in_FP_order`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `status_in_FP_order_all`
+--
+ALTER TABLE `status_in_FP_order_all`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -942,114 +1044,6 @@ ALTER TABLE `zakaz_type`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `active_admin_sessions`
---
-ALTER TABLE `active_admin_sessions`
-  ADD PRIMARY KEY (`session_id`);
-
---
--- Индексы таблицы `config_AlfaMerchant`
---
-ALTER TABLE `config_AlfaMerchant`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `config_PayKeeper`
---
-ALTER TABLE `config_PayKeeper`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `config_TinkoffMerchant`
---
-ALTER TABLE `config_TinkoffMerchant`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `config_pixelcrm`
---
-ALTER TABLE `config_pixelcrm`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `config_frontpad_order_statuses`
---
-ALTER TABLE `config_frontpad_order_statuses`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `hello_points_history`
---
-ALTER TABLE `hello_points_history`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `notifications_manager`
---
-ALTER TABLE `notifications_manager`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `send_order_sbis`
---
-ALTER TABLE `send_order_sbis`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `settings_tapLink`
---
-ALTER TABLE `settings_tapLink`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `settings_tapLink_button`
---
-ALTER TABLE `settings_tapLink_button`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `settings_Senler`
---
-ALTER TABLE `settings_Senler`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `settings_active_category`
---
-ALTER TABLE `settings_active_category`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `settings_yoomoney`
---
-ALTER TABLE `settings_yoomoney`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `promokode_activate_attempt`
---
-ALTER TABLE `promokode_activate_attempt`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `promokod_category`
---
-ALTER TABLE `promokod_category`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `promokod_tpl`
---
-ALTER TABLE `promokod_tpl`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `status_in_FP_order_all`
---
-ALTER TABLE `status_in_FP_order_all`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -1057,7 +1051,7 @@ ALTER TABLE `status_in_FP_order_all`
 -- AUTO_INCREMENT для таблицы `admin_menu`
 --
 ALTER TABLE `admin_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT для таблицы `ADM_WORK_catalog_list_day_sale`
@@ -1105,7 +1099,7 @@ ALTER TABLE `auto_push_notice_settings`
 -- AUTO_INCREMENT для таблицы `basket_user`
 --
 ALTER TABLE `basket_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `basket_user_vk`
@@ -1129,7 +1123,7 @@ ALTER TABLE `catalogModifyComboTittleVariant`
 -- AUTO_INCREMENT для таблицы `catalog_list_day_sale`
 --
 ALTER TABLE `catalog_list_day_sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `catalog_modificate`
@@ -1177,7 +1171,7 @@ ALTER TABLE `city_bind`
 -- AUTO_INCREMENT для таблицы `city_price`
 --
 ALTER TABLE `city_price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `Complaints_connectKodeError`
@@ -1240,15 +1234,45 @@ ALTER TABLE `config`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT для таблицы `config_AlfaMerchant`
+--
+ALTER TABLE `config_AlfaMerchant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `config_frontpad`
 --
 ALTER TABLE `config_frontpad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_frontpad_order_statuses`
+--
+ALTER TABLE `config_frontpad_order_statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_PayKeeper`
+--
+ALTER TABLE `config_PayKeeper`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_pixelcrm`
+--
+ALTER TABLE `config_pixelcrm`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `config_sberbank_api`
 --
 ALTER TABLE `config_sberbank_api`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `config_TinkoffMerchant`
+--
+ALTER TABLE `config_TinkoffMerchant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1267,13 +1291,13 @@ ALTER TABLE `cork_settings`
 -- AUTO_INCREMENT для таблицы `datePreorderListStop`
 --
 ALTER TABLE `datePreorderListStop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `dilivery_zones`
 --
 ALTER TABLE `dilivery_zones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `DZ_District`
@@ -1285,7 +1309,7 @@ ALTER TABLE `DZ_District`
 -- AUTO_INCREMENT для таблицы `DZ_Locality`
 --
 ALTER TABLE `DZ_Locality`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT для таблицы `DZ_PriceDeliveryLocality`
@@ -1303,7 +1327,7 @@ ALTER TABLE `DZ_Region`
 -- AUTO_INCREMENT для таблицы `DZ_Street`
 --
 ALTER TABLE `DZ_Street`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `DZ_TypeDistrict`
@@ -1315,7 +1339,7 @@ ALTER TABLE `DZ_TypeDistrict`
 -- AUTO_INCREMENT для таблицы `DZ_TypeLocality`
 --
 ALTER TABLE `DZ_TypeLocality`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `DZ_Type_street`
@@ -1351,7 +1375,7 @@ ALTER TABLE `gift_color`
 -- AUTO_INCREMENT для таблицы `gift_content`
 --
 ALTER TABLE `gift_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `gift_line`
@@ -1363,7 +1387,7 @@ ALTER TABLE `gift_line`
 -- AUTO_INCREMENT для таблицы `gift_list`
 --
 ALTER TABLE `gift_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `gift_setting`
@@ -1390,16 +1414,22 @@ ALTER TABLE `headmenu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT для таблицы `hello_points_history`
+--
+ALTER TABLE `hello_points_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `info_login_admin`
 --
 ALTER TABLE `info_login_admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `info_login_users`
 --
 ALTER TABLE `info_login_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `ingredients`
@@ -1435,7 +1465,7 @@ ALTER TABLE `list_birthday_sale_active`
 -- AUTO_INCREMENT для таблицы `list_category_preset`
 --
 ALTER TABLE `list_category_preset`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `list_dop_product_preset`
@@ -1501,13 +1531,13 @@ ALTER TABLE `locality_bind`
 -- AUTO_INCREMENT для таблицы `log_actions`
 --
 ALTER TABLE `log_actions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=316;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `log_auth_call_phone_query`
 --
 ALTER TABLE `log_auth_call_phone_query`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `log_auto_push_notice`
@@ -1552,6 +1582,12 @@ ALTER TABLE `modal_template`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT для таблицы `modificationCompilation`
+--
+ALTER TABLE `modificationCompilation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `modificationProductList`
 --
 ALTER TABLE `modificationProductList`
@@ -1576,6 +1612,12 @@ ALTER TABLE `notification`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `notifications_manager`
+--
+ALTER TABLE `notifications_manager`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
 -- AUTO_INCREMENT для таблицы `notification_user_list`
 --
 ALTER TABLE `notification_user_list`
@@ -1585,7 +1627,7 @@ ALTER TABLE `notification_user_list`
 -- AUTO_INCREMENT для таблицы `orders_list_full`
 --
 ALTER TABLE `orders_list_full`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `order_list_dop`
@@ -1597,7 +1639,7 @@ ALTER TABLE `order_list_dop`
 -- AUTO_INCREMENT для таблицы `order_list_gift`
 --
 ALTER TABLE `order_list_gift`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `order_list_modify`
@@ -1639,7 +1681,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `points_order`
 --
 ALTER TABLE `points_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `points_system`
@@ -1663,12 +1705,30 @@ ALTER TABLE `pripravi`
 -- AUTO_INCREMENT для таблицы `promokod`
 --
 ALTER TABLE `promokod`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT для таблицы `promokode_activate_attempt`
+--
+ALTER TABLE `promokode_activate_attempt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `promokod_actions`
 --
 ALTER TABLE `promokod_actions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `promokod_category`
+--
+ALTER TABLE `promokod_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `promokod_tpl`
+--
+ALTER TABLE `promokod_tpl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1705,7 +1765,7 @@ ALTER TABLE `reviews_group`
 -- AUTO_INCREMENT для таблицы `reviews_list`
 --
 ALTER TABLE `reviews_list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `reviews_question`
@@ -1723,7 +1783,13 @@ ALTER TABLE `reviews_result`
 -- AUTO_INCREMENT для таблицы `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT для таблицы `send_order_sbis`
+--
+ALTER TABLE `send_order_sbis`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT для таблицы `session_data_voice_order`
@@ -1736,6 +1802,12 @@ ALTER TABLE `session_data_voice_order`
 --
 ALTER TABLE `settings_accounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Заполняется автоматически', AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_active_category`
+--
+ALTER TABLE `settings_active_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT для таблицы `settings_birthday_modul`
@@ -1774,10 +1846,22 @@ ALTER TABLE `settings_preorder`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT для таблицы `settings_Senler`
+--
+ALTER TABLE `settings_Senler`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `settings_sms`
 --
 ALTER TABLE `settings_sms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_telegram`
+--
+ALTER TABLE `settings_telegram`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `settings_theme_class`
@@ -1802,6 +1886,12 @@ ALTER TABLE `settings_theme_type_value`
 --
 ALTER TABLE `settings_theme_value`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+
+--
+-- AUTO_INCREMENT для таблицы `settings_yoomoney`
+--
+ALTER TABLE `settings_yoomoney`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `sitemap`
@@ -1838,6 +1928,12 @@ ALTER TABLE `stats_code`
 --
 ALTER TABLE `status_in_FP_order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `status_in_FP_order_all`
+--
+ALTER TABLE `status_in_FP_order_all`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `status_orders_list`
@@ -1885,19 +1981,19 @@ ALTER TABLE `type_category`
 -- AUTO_INCREMENT для таблицы `units`
 --
 ALTER TABLE `units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Порядковый номер', AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Порядковый номер', AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `usersPoints`
 --
 ALTER TABLE `usersPoints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `user_group`
@@ -1909,7 +2005,7 @@ ALTER TABLE `user_group`
 -- AUTO_INCREMENT для таблицы `verification_call`
 --
 ALTER TABLE `verification_call`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `verification_sms`
@@ -1927,7 +2023,7 @@ ALTER TABLE `VKApiSettings`
 -- AUTO_INCREMENT для таблицы `VKMarketSettings`
 --
 ALTER TABLE `VKMarketSettings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `worker_users`
@@ -1939,13 +2035,13 @@ ALTER TABLE `worker_users`
 -- AUTO_INCREMENT для таблицы `yandex_kassa`
 --
 ALTER TABLE `yandex_kassa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `zakazy`
 --
 ALTER TABLE `zakazy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT для таблицы `zakazy_all`
@@ -1958,108 +2054,6 @@ ALTER TABLE `zakazy_all`
 --
 ALTER TABLE `zakaz_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT для таблицы `config_AlfaMerchant`
---
-ALTER TABLE `config_AlfaMerchant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `config_PayKeeper`
---
-ALTER TABLE `config_PayKeeper`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `config_TinkoffMerchant`
---
-ALTER TABLE `config_TinkoffMerchant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `config_pixelcrm`
---
-ALTER TABLE `config_pixelcrm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `config_frontpad_order_statuses`
---
-ALTER TABLE `config_frontpad_order_statuses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `hello_points_history`
---
-ALTER TABLE `hello_points_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `notifications_manager`
---
-ALTER TABLE `notifications_manager`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `send_order_sbis`
---
-ALTER TABLE `send_order_sbis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `settings_tapLink`
---
-ALTER TABLE `settings_tapLink`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `settings_tapLink_button`
---
-ALTER TABLE `settings_tapLink_button`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `settings_Senler`
---
-ALTER TABLE `settings_Senler`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `settings_active_category`
---
-ALTER TABLE `settings_active_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `settings_yoomoney`
---
-ALTER TABLE `settings_yoomoney`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `promokode_activate_attempt`
---
-ALTER TABLE `promokode_activate_attempt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `promokod_category`
---
-ALTER TABLE `promokod_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `promokod_tpl`
---
-ALTER TABLE `promokod_tpl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `status_in_FP_order_all`
---
-ALTER TABLE `status_in_FP_order_all`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -2109,13 +2103,6 @@ ALTER TABLE `Complaints_PromokodList`
 --
 ALTER TABLE `Complaints_UserKode`
   ADD CONSTRAINT `Complaints_UserKode_fk_0_id_kode` FOREIGN KEY (`id_kode`) REFERENCES `Complaints_PromokodList` (`id`);
-  
---
--- Индексы таблицы `settings_telegram`
---
-ALTER TABLE `settings_telegram`
-  ADD PRIMARY KEY (`id`);
-
 COMMIT;
 ";
 

@@ -4,8 +4,8 @@ $Query2 ="
 -- Дамп данных таблицы `city_bind`
 --
 
-INSERT INTO `city_bind` (`id`, `shows_site`, `title`, `title_lat`, `id_affilate`) VALUES
-(1, 1, '".$CityTitle."', '".$CityTitleLat."', '1');
+INSERT INTO `city_bind` (`id`, `shows_site`, `title`, `title_lat`, `id_affilate`, `UTC_Hourse`) VALUES
+(1, 1, '".$CityTitle."', '".$CityTitleLat."', '1', '0');
 
 -- --------------------------------------------------------
 
@@ -219,16 +219,36 @@ CREATE TABLE `config` (
   `time_timer` varchar(255) NOT NULL,
   `text_timer` text NOT NULL,
   `text_timer_mobile` text NOT NULL,
-  `SaleShowCatalog` int(11) NOT NULL DEFAULT '1'
+  `SaleShowCatalog` int(11) NOT NULL DEFAULT '1',
+  `keyGeocoder` text
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `config`
 --
 
-INSERT INTO `config` (`id`, `city_id`, `title_site`, `logo_site`, `template`, `access`, `admin_login`, `admin_pass`, `tovar_modal`, `default_category_page`, `def_on_category`, `footer_contacts`, `footer_copyright`, `header_contacts`, `header_text`, `description_site`, `keyword_site`, `reg_stop`, `sms_sender_id`, `soc_vk_link`, `soc_vk_title`, `soc_insta_link`, `soc_insta_title`, `soc_fb_link`, `soc_fb_title`, `soc_youtube_link`, `soc_youtube_title`, `time_timer`, `text_timer`, `text_timer_mobile`, `SaleShowCatalog`) VALUES
-(1, 0, '".$SuitTitle."', '', '', 0, '', '', 1, 0, 0, '', '', '0', '', '".$SuitDescription."', '', 0, 1, '', '', '', '', '', '', '', '', '', '', '', 0),
-(2, 1, '{[city_title_html]} ".$SuitTitle."', '/images/logo.png', 'default', 0, '', '', 1, 31, 1, 'Телефон: ".$SuitPhoneHeader." &lt;br&gt;Email: email@yandex.ru&lt;br&gt;Время работы: \nc 11:00 до 23:00&lt;br&gt;&lt;a href=&quot;/kontakts&quot; style=&quot;color:#ffffff;&quot;&gt;Адрес точки самовывоза&lt;/a&gt;', '&lt;span class=&quot;copy_color&quot;&gt;{[NAMECompany]},&lt;/span&gt; ".date("Y")."', '".$SuitPhoneHeader."', '&lt;h1&gt;[{CITI_LIST_H1}] - H1 заголовок&lt;/h1&gt;', '".$SuitDescription."', '', 0, 1, 'https://vk.com/', 'Вконтакте', 'https://t.me/', 'Телеграм', '#', 'YouTube', '#', '', '120', 'Ваш заказ успешно принят в работу&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt; Для внесения изменений или уточнения деталей позвоните по номеру&lt;br&gt;', 'Ваш заказ успешно принят в работу&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt; Для внесения изменений или уточнения деталей позвоните по номеру&lt;br&gt;', 1);
+INSERT INTO `config` (`id`, `city_id`, `title_site`, `logo_site`, `template`, `access`, `admin_login`, `admin_pass`, `tovar_modal`, `default_category_page`, `def_on_category`, `footer_contacts`, `footer_copyright`, `header_contacts`, `header_text`, `description_site`, `keyword_site`, `reg_stop`, `sms_sender_id`, `soc_vk_link`, `soc_vk_title`, `soc_insta_link`, `soc_insta_title`, `soc_fb_link`, `soc_fb_title`, `soc_youtube_link`, `soc_youtube_title`, `time_timer`, `text_timer`, `text_timer_mobile`, `SaleShowCatalog`, `keyGeocoder`) VALUES
+(1, 0, '".$SuitTitle."', '', '', 0, '', '', 1, 0, 0, '', '', '0', '', '".$SuitDescription."', '', 0, 1, '', '', '', '', '', '', '', '', '', '', '', 0, '6f39098c-b88c-48a8-b0a3-5126abc9199c'),
+(2, 1, '{[city_title_html]} ".$SuitTitle."', '/images/logo.png', 'default', 0, '', '', 1, 31, 1, 'Телефон: ".$SuitPhoneHeader." &lt;br&gt;Email: email@yandex.ru&lt;br&gt;Время работы: \nc 11:00 до 23:00&lt;br&gt;&lt;a href=&quot;/kontakts&quot; style=&quot;color:#ffffff;&quot;&gt;Адрес точки самовывоза&lt;/a&gt;', '&lt;span class=&quot;copy_color&quot;&gt;{[NAMECompany]},&lt;/span&gt; ".date("Y")."', '".$SuitPhoneHeader."', '&lt;h1&gt;[{CITI_LIST_H1}] - H1 заголовок&lt;/h1&gt;', '".$SuitDescription."', '', 0, 1, 'https://vk.com/', 'Вконтакте', 'https://t.me/', 'Телеграм', '#', 'YouTube', '#', '', '120', 'Ваш заказ успешно принят в работу&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt; Для внесения изменений или уточнения деталей позвоните по номеру&lt;br&gt;', 'Ваш заказ успешно принят в работу&lt;/br&gt;&lt;br&gt;&lt;/br&gt;&lt;br&gt; Для внесения изменений или уточнения деталей позвоните по номеру&lt;br&gt;', 1, '6f39098c-b88c-48a8-b0a3-5126abc9199c');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `config_AlfaMerchant`
+--
+
+CREATE TABLE `config_AlfaMerchant` (
+  `id` int(11) NOT NULL,
+  `id_points` int(11) NOT NULL,
+  `url_api` text COMMENT 'url - для запросов, тестовый и боевой',
+  `login` text NOT NULL,
+  `password` text NOT NULL,
+  `active` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '0 - самовывоз, 1 - доставка',
+  `id_city` int(11) NOT NULL,
+  `token` text,
+  `type_data` int(11) NOT NULL COMMENT '0 - тестовые, 1 боевые'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -245,13 +265,63 @@ CREATE TABLE `config_frontpad` (
   `city_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `config_frontpad_order_statuses`
+--
+
+CREATE TABLE `config_frontpad_order_statuses` (
+  `id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `order_type` enum('delivery','pickup','preorder') NOT NULL,
+  `external_status_id` int(11) NOT NULL,
+  `external_status_name` varchar(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `config_PayKeeper`
+--
+
+CREATE TABLE `config_PayKeeper` (
+  `id` int(11) NOT NULL,
+  `id_points` int(11) NOT NULL,
+  `url_api` text,
+  `login` text NOT NULL,
+  `password` text NOT NULL,
+  `active` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL,
+  `token` text,
+  `type_data` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `config_pixelcrm`
+--
+
+CREATE TABLE `config_pixelcrm` (
+  `id` int(11) NOT NULL,
+  `api_key` varchar(255) NOT NULL,
+  `apiUrl` text NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `city_id` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
 --
 -- Дамп данных таблицы `config_frontpad`
 --
 
 INSERT INTO `config_frontpad` (`id`, `api_key`, `apiUrl`, `active`, `city_id`) VALUES
-(1, 'keyFP', 'https://app.frontpad.ru/api/index.php?', 1, 1),
-(2, 'keyFP', 'https://app.frontpad.ru/api/index.php?', 1, 4);
+(1, 'keyFP', 'https://app.frontpad.ru/api/index.php?', 1, 1);
 
 -- --------------------------------------------------------
 

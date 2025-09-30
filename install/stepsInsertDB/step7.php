@@ -25,7 +25,10 @@ CREATE TABLE `points_order` (
   `timePickupNew` int(11) NOT NULL DEFAULT '1',
   `pincodeOfflinePoints` varchar(255) NOT NULL,
   `offlinePointsStatus` int(11) NOT NULL DEFAULT '0',
-  `showUser` int(11) NOT NULL DEFAULT '1'
+  `showUser` int(11) NOT NULL DEFAULT '1',
+  `organizationId` varchar(255) DEFAULT NULL,
+  `worktimeUTC` text NOT NULL,
+  `UTC_Hourse` varchar(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -305,10 +308,26 @@ CREATE TABLE `promokod` (
   `time_off` varchar(255) NOT NULL,
   `typeDevice` int(11) NOT NULL DEFAULT '1' COMMENT '1 - все, 2 - сайт, 3 - приложения',
   `city_id` int(11) NOT NULL DEFAULT '0',
-  `promo_total` int(11) NOT NULL DEFAULT '0'
+  `promo_total` int(11) NOT NULL DEFAULT '0',
+  `id_promokod_category` int(11) NOT NULL DEFAULT '0',
+  `type_count_activation` int(11) NOT NULL DEFAULT '0',
+  `type_delivered_order` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `promokode_activate_attempt`
+--
+
+CREATE TABLE `promokode_activate_attempt` (
+  `id` int(11) NOT NULL,
+  `kode` text NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `type_device` int(11) NOT NULL DEFAULT '1',
+  `time` int(11) NOT NULL,
+  `city_id` int(11) DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Структура таблицы `promokod_actions`
@@ -322,7 +341,73 @@ CREATE TABLE `promokod_actions` (
   `id_user` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   `date` text NOT NULL,
-  `zakaz` int(11) NOT NULL
+  `zakaz` int(11) NOT NULL,
+  `type_count_activation` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `promokod_category`
+--
+
+CREATE TABLE `promokod_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `promokod_category`
+--
+
+INSERT INTO `promokod_category` (`id`, `name`) VALUES
+(1, 'Рассылки'),
+(2, 'Постоянные'),
+(3, 'Сезонные');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `promokod_tpl`
+--
+
+CREATE TABLE `promokod_tpl` (
+  `id` int(11) NOT NULL,
+  `name_tpl` text NOT NULL,
+  `kode` varchar(255) NOT NULL,
+  `type_promo` int(11) NOT NULL DEFAULT '0',
+  `count_check` int(11) NOT NULL DEFAULT '1',
+  `count_tovar` int(11) NOT NULL DEFAULT '1',
+  `time_create` int(11) NOT NULL,
+  `time_start_active` int(11) NOT NULL DEFAULT '0',
+  `time_life` int(11) NOT NULL DEFAULT '0',
+  `id_user` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `id_tovar` int(11) NOT NULL,
+  `sale` int(11) NOT NULL,
+  `sale_type` int(11) NOT NULL DEFAULT '0',
+  `status` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `type_tovar` text NOT NULL,
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  `dop_setings` int(11) NOT NULL DEFAULT '0',
+  `id_category_settings` int(11) NOT NULL DEFAULT '0',
+  `count_tovar_active` int(11) NOT NULL DEFAULT '0',
+  `id_tovar_default` int(11) NOT NULL DEFAULT '0',
+  `type_tovar_default` text NOT NULL,
+  `add_tovar_cart` int(11) NOT NULL DEFAULT '0',
+  `summa_min_active` int(11) NOT NULL DEFAULT '0',
+  `type_summa_check` int(11) NOT NULL DEFAULT '0',
+  `addition_gifts` int(11) NOT NULL DEFAULT '0',
+  `addition_birthday` int(11) NOT NULL DEFAULT '0',
+  `addition_discount` int(11) NOT NULL DEFAULT '0',
+  `adds_type` int(11) NOT NULL DEFAULT '0',
+  `time_to_do` int(11) NOT NULL DEFAULT '0',
+  `time_on` varchar(255) NOT NULL,
+  `time_off` varchar(255) NOT NULL,
+  `typeDevice` int(11) NOT NULL DEFAULT '1',
+  `city_id` int(11) NOT NULL DEFAULT '0',
+  `promo_total` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -439,14 +524,6 @@ CREATE TABLE `reviews_list` (
   `comment` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `reviews_list`
---
-
-INSERT INTO `reviews_list` (`id`, `id_order`, `status`, `active`, `deleted`, `comment`) VALUES
-(1, 144, 0, 1, 0, NULL),
-(2, 185, 1, 1, 0, 'Вкуснр');
-
 -- --------------------------------------------------------
 
 --
@@ -529,6 +606,19 @@ CREATE TABLE `sales` (
   `city_id` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Структура таблицы `send_order_sbis`
+--
+
+CREATE TABLE `send_order_sbis` (
+  `id` int(11) NOT NULL,
+  `numberOrder` varchar(255) NOT NULL,
+  `saleKey` text NOT NULL,
+  `statusSend` varchar(255) NOT NULL,
+  `idOrderSystem` int(11) NOT NULL,
+  `error` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
@@ -565,6 +655,18 @@ INSERT INTO `settings_accounts` (`id`, `active_reg`, `active_login`, `active_poi
 (1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `settings_active_category`
+--
+
+CREATE TABLE `settings_active_category` (
+  `id` int(11) NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `show_index` int(11) NOT NULL,
+  `active` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Структура таблицы `settings_birthday_modul`
@@ -660,6 +762,8 @@ CREATE TABLE `settings_korz` (
   `active_app_mobile` int(11) NOT NULL DEFAULT '0',
   `active_app_mobile_v2` int(11) NOT NULL DEFAULT '0',
   `points_on` int(11) NOT NULL DEFAULT '0',
+  `points_on_out` int(11) NOT NULL DEFAULT '0',
+  `points_on_promo` int(11) NOT NULL DEFAULT '0',
   `sale_on` int(11) NOT NULL DEFAULT '0',
   `count_sale_on` int(11) NOT NULL,
   `proc_sale` varchar(255) NOT NULL,
@@ -667,17 +771,24 @@ CREATE TABLE `settings_korz` (
   `cashPaymentActive` int(11) NOT NULL DEFAULT '0',
   `terminalPaymentActive` int(11) NOT NULL DEFAULT '0',
   `timeStartActiveMobileBasket` text,
-  `timeStopActiveMobileBasket` text
+  `timeStopActiveMobileBasket` text,
+  `hello_bonus_active` int(11) NOT NULL DEFAULT '0',
+  `hello_bonus_count` int(11) NOT NULL DEFAULT '0',
+  `send_sbis` int(11) NOT NULL DEFAULT '0',
+  `gifts` int(11) NOT NULL DEFAULT '0',
+  `HelloPointsAuth` int(1) DEFAULT '0',
+  `HelloPointsAuth_active` int(1) DEFAULT '0',
+  `active_delivered` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `settings_korz`
 --
 
-INSERT INTO `settings_korz` (`id`, `id_city`, `active`, `active_app_vk`, `active_app_mobile`,`active_app_mobile_v2`, `points_on`, `sale_on`, `count_sale_on`, `proc_sale`, `onlinePaymentActive`, `cashPaymentActive`, `terminalPaymentActive`, `timeStartActiveMobileBasket`, `timeStopActiveMobileBasket`) VALUES
-(1, 1, 1, 1, 1, 1, 1, 0, 4, '10', 0, 1, 1, '10:00', '21:45'),
-(2, 4, 1, 1, 1, 1, 0, 0, 4, '10', 0, 1, 1, NULL, NULL),
-(3, 0, 0, 0, 0, 0, 0, 0, 0, '1', 0, 0, 0, '10:30', '22:30');
+INSERT INTO `settings_korz` (`id`, `id_city`, `active`, `active_app_vk`, `active_app_mobile`, `active_app_mobile_v2`, `points_on`, `points_on_out`, `points_on_promo`, `sale_on`, `count_sale_on`, `proc_sale`, `onlinePaymentActive`, `cashPaymentActive`, `terminalPaymentActive`, `timeStartActiveMobileBasket`, `timeStopActiveMobileBasket`, `hello_bonus_active`, `hello_bonus_count`, `send_sbis`, `gifts`, `HelloPointsAuth`, `HelloPointsAuth_active`, `active_delivered`) VALUES
+(1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 4, '10', 0, 1, 0, '11:00', '22:40', 0, 500, 1, 1, 0, 0, 1),
+(2, 4, 1, 1, 0, 1, 0, 0, 0, 0, 4, '10', 0, 1, 0, '11:00', '22:45', 0, 0, 1, 0, 0, 0, 1),
+(3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, '1', 0, 0, 0, '11:00', '22:40', 0, 0, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -707,6 +818,23 @@ INSERT INTO `settings_preorder` (`id`, `year_on`, `month_on`, `count_day_preorde
 
 -- --------------------------------------------------------
 
+--
+-- Структура таблицы `settings_Senler`
+--
+
+CREATE TABLE `settings_Senler` (
+  `id` int(11) NOT NULL,
+  `idApp` int(11) NOT NULL DEFAULT '0',
+  `groupId` int(11) NOT NULL,
+  `accessToken` varchar(255) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `active` int(11) NOT NULL,
+  `deleted` int(11) NOT NULL,
+  `setOrderGroupId` int(11) NOT NULL DEFAULT '0',
+  `openAppVKGroupId` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
 -- Структура таблицы `settings_sms`
@@ -728,9 +856,55 @@ CREATE TABLE `settings_sms` (
 
 INSERT INTO `settings_sms` (`id`, `login_sms`, `password_sms`, `url_json`, `API_KEY`, `SenderName`) VALUES
 (1, 'login', 'password', 'https://smsc.ru/sys/send.php', '', ''),
-(2, '', '', '', 'trtr', 'yyy');
+(2, '', '', '', '', '');
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `settings_tapLink`
+--
+
+CREATE TABLE `settings_tapLink` (
+  `id` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL,
+  `backgroundImage` text NOT NULL,
+  `logo` text NOT NULL,
+  `title` text NOT NULL,
+  `description` text NOT NULL,
+  `text` text NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `deleted` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `settings_tapLink_button`
+--
+
+CREATE TABLE `settings_tapLink_button` (
+  `id` int(11) NOT NULL,
+  `id_tapLink` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `link` text NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `deleted` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `settings_telegram`
+--
+
+CREATE TABLE `settings_telegram` (
+  `id` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL,
+  `id_chat` varchar(255) NOT NULL,
+  `name` text NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `id_affiliate` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Структура таблицы `settings_theme_class`
@@ -928,6 +1102,25 @@ INSERT INTO `settings_theme_value` (`id`, `id_group`, `id_class`, `name`, `value
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `settings_yoomoney`
+--
+
+CREATE TABLE `settings_yoomoney` (
+  `id` int(11) NOT NULL,
+  `id_city` int(11) NOT NULL,
+  `id_points` int(11) NOT NULL,
+  `return_url` text NOT NULL COMMENT 'куда отправить пользователя после оплаты',
+  `login` text NOT NULL,
+  `password` text NOT NULL,
+  `active` int(11) NOT NULL,
+  `type` int(11) NOT NULL COMMENT '0 - самовывоз, 1 доставка',
+  `type_data` int(11) NOT NULL COMMENT '0 - тестовые, 1 - боевые',
+  `token` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `sitemap`
 --
 
@@ -989,7 +1182,8 @@ CREATE TABLE `sms_list` (
   `phone` text NOT NULL,
   `results` text NOT NULL,
   `time` int(11) NOT NULL,
-  `city_id` int(11) NOT NULL DEFAULT '0'
+  `city_id` int(11) NOT NULL DEFAULT '0',
+  `type_sms` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1000,6 +1194,26 @@ CREATE TABLE `sms_list` (
 --
 
 CREATE TABLE `status_in_FP_order` (
+  `id` int(11) NOT NULL,
+  `id_zakaz` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_affiliate` int(11) NOT NULL,
+  `id_dot` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `load_FP_status` varchar(255) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  `messageJson` text NOT NULL,
+  `city_id` int(11) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `status_in_FP_order_all`
+--
+
+CREATE TABLE `status_in_FP_order_all` (
   `id` int(11) NOT NULL,
   `id_zakaz` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
@@ -1200,7 +1414,11 @@ CREATE TABLE `users` (
   `user_group` int(11) NOT NULL DEFAULT '0',
   `startSumBonus` int(11) NOT NULL DEFAULT '0',
   `dateLastOrder` int(11) NOT NULL DEFAULT '0',
-  `dateLastNoticeFromOrderInfo` int(11) NOT NULL DEFAULT '0'
+  `dateLastNoticeFromOrderInfo` int(11) NOT NULL DEFAULT '0',
+  `hello_bonus_get` int(11) NOT NULL DEFAULT '0',
+  `optOutHelloPoints` tinyint(1) DEFAULT '0',
+  `helloPoints` tinyint(1) DEFAULT '0',
+  `modalShown` tinyint(1) DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Данные о пользователе и его накопленных баллах';
 
 -- --------------------------------------------------------
@@ -1216,16 +1434,6 @@ CREATE TABLE `usersPoints` (
   `json` text NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `usersPoints`
---
-
-INSERT INTO `usersPoints` (`id`, `id_Point`, `PinCode`, `json`, `active`) VALUES
-(1, 2, '0000', '[]', 1),
-(2, 2, '0001', '[]', 1),
-(3, 3, '0002', '[]', 1),
-(4, 4, '0003', '[]', 1);
 
 -- --------------------------------------------------------
 

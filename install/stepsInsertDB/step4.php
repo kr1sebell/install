@@ -98,7 +98,8 @@ CREATE TABLE `log_auto_push_notice` (
   `time_send` int(11) NOT NULL DEFAULT '0',
   `sendStatus` int(11) NOT NULL DEFAULT '0',
   `active` int(11) NOT NULL DEFAULT '1',
-  `deleted` int(11) NOT NULL DEFAULT '0'
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  `send_sms` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

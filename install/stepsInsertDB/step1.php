@@ -15,13 +15,17 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = \"+00:00\";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
--- --------------------------------------------------------
+CREATE TABLE `active_admin_sessions` (
+  `session_id` varchar(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `last_activity` int(11) NOT NULL,
+  `active` tinyint(1) DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Структура таблицы `admin_menu`
@@ -40,8 +44,8 @@ CREATE TABLE `admin_menu` (
 --
 
 INSERT INTO `admin_menu` (`id`, `title`, `orders`, `url`, `access_admin`) VALUES
-(1, 'Товары', 1, 'all_tovars', 1),
-(2, 'Добавить товар', 3, 'add', 1),
+(1, 'Товары', 1, 'all_tovars', 5),
+(2, 'Добавить товар', 3, 'add', 5),
 (3, 'Не активные', 2, 'noactive_tovars', 1),
 (4, 'Заказы', 5, 'zakazy', 0),
 (5, 'Страницы', 6, 'pages_editor', 1),
@@ -50,10 +54,10 @@ INSERT INTO `admin_menu` (`id`, `title`, `orders`, `url`, `access_admin`) VALUES
 (8, 'Модули', 10, 'moduls_settings', 0),
 (9, 'Промокоды', 12, 'promokods', 1),
 (10, 'Касса', 15, 'y_kassa', 0),
-(11, 'Бонусы', 13, 'points_system', 0),
+(11, 'Бонусная система', 13, 'points_system', 1),
 (12, 'Выход', 16, '?logout_admin=1', 7),
 (13, 'Доставка (все)', 14, 'dostavka_price', 0),
-(14, 'Пользователи', 11, 'edit_users', 3),
+(14, 'Пользователи', 11, 'edit_users', 5),
 (15, 'Доп. товары', 2, 'edit_dop_tovar', 1),
 (16, 'Добавить страницу', 13, 'add_page', 0),
 (17, 'Характеристики', 4, 'edit_groupeFeatures', 1),
@@ -71,7 +75,9 @@ INSERT INTO `admin_menu` (`id`, `title`, `orders`, `url`, `access_admin`) VALUES
 (29, 'Корзина', 9, 'modules/settings_korzina', 1),
 (30, 'Push рассылки', 10, 'modules/pushNotificationAdmin', 1),
 (31, 'Подарки', 10, 'modules/gift', 2),
-(32, 'Наборы', 9, 'modules/dop_product_limit?moduls_set=all', 1);
+(32, 'Наборы', 9, 'modules/dop_product_limit?moduls_set=all', 1),
+(33, 'Баллы', 9, 'modules/manager_control?manager_moduls=points_edit', 5),
+(34, 'Сбис', 9, 'modules/Sbis?moduls_Sbis=testPanel', 5);
 
 -- --------------------------------------------------------
 
@@ -251,7 +257,8 @@ CREATE TABLE `adres` (
   `city_bind` int(11) NOT NULL,
   `GEO_1` varchar(255) NOT NULL,
   `GEO_2` varchar(255) NOT NULL,
-  `deleted` int(11) NOT NULL DEFAULT '0'
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  `is_selected` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -377,7 +384,10 @@ CREATE TABLE `catalog` (
   `DiscountAllCategoryModification` varchar(255) DEFAULT NULL COMMENT 'Сумма в рублях или % для скидки на модификаторы',
   `modifyFromCategory` int(11) NOT NULL DEFAULT '0' COMMENT 'Модификаторы от категории',
   `must_modify` int(11) NOT NULL DEFAULT '0' COMMENT 'Должен присутствовать модификатор',
-  `count_must_modify` int(11) NOT NULL DEFAULT '1' COMMENT 'Кол-во обязательных модификаторов'
+  `count_must_modify` int(11) NOT NULL DEFAULT '1' COMMENT 'Кол-во обязательных модификаторов',
+  `priceFrom` int(11) NOT NULL DEFAULT '0',
+  `priceFromCount` int(11) NOT NULL DEFAULT '0',
+  `idVkProduct` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -537,7 +547,9 @@ CREATE TABLE `city_bind` (
   `shows_site` int(11) NOT NULL DEFAULT '0',
   `title` text NOT NULL,
   `title_lat` text NOT NULL,
-  `id_affilate` varchar(255) NOT NULL
+  `id_affilate` varchar(255) NOT NULL,
+  `UTC_Hourse` varchar(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ";
 
