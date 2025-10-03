@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Юнит‑экономика — интерактивный калькулятор</title>
+    <style>
+        :root{
+            --bg:#0b0f14;--panel:#111824;--muted:#7d8aa0;--text:#eaf2ff;--ok:#31c48d;--warn:#f59e0b;--bad:#ef4444;--line:#1c2533;--accent:#4f46e5;--rev:#60a5fa;--cost:#fca5a5;--ad:#fbbf24;--fix:#a78bfa;--net:#34d399;
+        }
+        body.light{
+            --bg:#f5f7fb;--panel:#ffffff;--muted:#5d6775;--text:#1d2430;--ok:#15803d;--warn:#ca8a04;--bad:#b91c1c;--line:#d0d7e2;--accent:#2563eb;--rev:#1d4ed8;--cost:#ef4444;--ad:#ca8a04;--fix:#7c3aed;--net:#059669;
+        }
+        *{box-sizing:border-box}
+        body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;transition:background .3s,color .3s}
+        h1{font-size:20px;margin:0 0 12px}
+        h2{font-size:16px;margin:18px 0 10px;color:var(--accent)}
+        .wrap{max-width:1180px;margin:24px auto;padding:0 16px}
+        .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        @media (max-width:1000px){.grid{grid-template-columns:1fr}}
+        .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+        .row{display:grid;grid-template-columns:220px 1fr 110px;gap:10px;align-items:center;margin:6px 0;position:relative}
+        .row small{color:var(--muted)}
+        .row input, .row textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
+        .row input:focus, .row textarea:focus{outline:2px solid var(--accent);border-color:var(--accent)}
+        .hint{color:var(--muted);font-size:12px;margin-top:6px}
+        .tooltip-icon{cursor:pointer;margin-left:6px;color:var(--muted);border-radius:50%;border:1px solid var(--line);display:inline-block;width:16px;height:16px;text-align:center;line-height:14px;font-size:12px;position:relative}
+        .tooltip-icon:hover .tooltip-text{visibility:visible;opacity:1}
+        .tooltip-text{visibility:hidden;opacity:0;transition:opacity .2s;position:absolute;z-index:10;top:22px;left:0;background:var(--panel);border:1px solid var(--line);padding:8px;border-radius:8px;font-size:12px;color:var(--text);width:280px}
+        .out{display:flex;justify-content:space-between;border-top:1px dashed var(--line);padding:8px 0}
+        .out b{font-weight:600}
+        .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;margin-left:8px}
+        .ok{background:#133a2c;color:#8eedc7}
+        .bad{background:#3a1517;color:#ffb4b9}
+        .warn{background:#3a2f13;color:#ffd58a}
+        .totals{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+        @media (max-width:1000px){.totals{grid-template-columns:1fr 1fr}}
+        .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+        .kpi h3{margin:0 0 6px;font-size:13px;color:var(--accent)}
+        .kpi .val{font-size:20px;font-weight:700}
+        .theme-toggle{margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+        .theme-toggle button{background:var(--panel);color:var(--text);border:1px solid var(--line);padding:6px 12px;border-radius:8px;cursor:pointer;transition:.2s}
+        .theme-toggle button:hover{background:var(--accent);color:#fff}
+        details{margin-top:10px}
+        code{background:var(--bg);border:1px solid var(--line);padding:2px 6px;border-radius:8px}
+        .foot{margin-top:18px;color:var(--muted)}
+        .num{font-variant-numeric:tabular-nums}
+        canvas{width:100%;height:260px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+        #jsonOutput{white-space:pre-wrap;background:var(--panel);padding:12px;border-radius:10px;margin-top:12px;display:none;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="theme-toggle">
+        <div>
+            <h1>Юнит‑экономика стартапа — интерактивный калькулятор</h1>
+            <div class="hint">Вводи данные слева — справа и ниже всё считается в реальном времени. Переключай тему для удобства.</div>
+        </div>
+        <button onclick="toggleTheme()" id="themeBtn">Светлая тема</button>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Вводные параметры</h2>
+            <!-- Период анализа -->
+        <div class="row">
+          <div>Период анализа <span class="tooltip-icon">i<span class="tooltip-text">Количество месяцев, за которые моделируется экономика (например, 12 = год).</span></span></div>
+          <input type="number" id="months" value="12" min="1" step="1" />
+          <small>мес.</small>
+        </div>
+
+            <div class="row">
+                <div>Трафик (UA), посетители <span class="tooltip-icon">i<span class="tooltip-text">Количество привлечённых пользователей, пришедших на сайт/приложение за период.</span></span></div>
+                <input type="number" id="ua" value="20" min="0" step="1" />
+                <small>чел.</small>
+            </div>
+            <div class="row">
+                <div>Конверсия C1 → покупатели <span class="tooltip-icon">i<span class="tooltip-text">Доля посетителей, которые совершили покупку. Buyers = UA × C1%.</span></span></div>
+                <input type="number" id="c1" value="100" min="0" max="100" step="0.001" />
+                <small>%</small>
+            </div>
+            <div class="row">
+                <div>Средний чек (Av.Price) <span class="tooltip-icon">i<span class="tooltip-text">Средняя сумма заказа, которую платит клиент за одну покупку.</span></span></div>
+                <input type="number" id="avgPrice" value="6000" min="0" step="1" />
+                <small>₽ / заказ</small>
+            </div>
+            <div class="row">
+                <div>Себестоимость (COGS) <span class="tooltip-icon">i<span class="tooltip-text">Прямые издержки на заказ: ингредиенты/продукция/лицензии.</span></span></div>
+                <input type="number" id="cogs" value="0" min="0" step="1" />
+                <small>₽ / заказ</small>
+            </div>
+            <div class="row">
+                <div>One‑time на 1‑ю покупку <span class="tooltip-icon">i<span class="tooltip-text">Разовые расходы на нового клиента (бонус, скидка, онбординг, логистика).
+          </span></span></div>
+                <input type="number" id="firstOrderExtra" value="500" min="0" step="1" />
+                <small>₽ / клиент</small>
+            </div>
+            <div class="row">
+                <div>Повторные покупки (APC) <span class="tooltip-icon">i<span class="tooltip-text">Среднее число заказов на одного клиента в рассматриваемом периоде/когорте.</span></span></div>
+                <input type="number" id="apc" value="12" min="1" step="0.01" />
+                <small>заказов / клиент</small>
+            </div>
+            <div class="row">
+                <div>Маркетинговые расходы (AC) <span class="tooltip-icon">i<span class="tooltip-text">Совокупные затраты на рекламу и продвижение в периоде.</span></span></div>
+                <input type="number" id="adSpend" value="10000" min="0" step="100" />
+                <small>₽ / период</small>
+            </div>
+            <div class="row">
+                <div>Доля органики <span class="tooltip-icon">i<span class="tooltip-text">Процент клиентов, пришедших без рекламы (SEO, рекомендации, прямой трафик). Влияет на CPA расчёт.</span></span></div>
+                <input type="number" id="organicShare" value="1" min="0" max="100" step="1" />
+                <small>% покупателей</small>
+            </div>
+            <div class="row">
+                <div>Фикс. издержки (Fix Cost) <span class="tooltip-icon">i<span class="tooltip-text">Регулярные расходы: офис, зарплаты, хостинг, администрация.</span></span></div>
+                <input type="number" id="fixed" value="10000" min="0" step="100" />
+                <small>₽ / период</small>
+            </div>
+
+            <details>
+                <summary>Расширенные параметры (комиссии/возвраты)</summary>
+                <div class="hint">Необязательные, но полезные для точности.</div>
+                <div class="row">
+                    <div>Рефанды / возвраты <span class="tooltip-icon">i<span class="tooltip-text">Доля выручки, которая возвращается клиентам (отмены, возвраты). Снижает чистую выручку.</span></span></div>
+                    <input type="number" id="refundRate" value="0" min="0" max="100" step="0.1" />
+                    <small>% от выручки</small>
+                </div>
+                <div class="row">
+                    <div>Комиссия платежей <span class="tooltip-icon">i<span class="tooltip-text">Комиссия эквайринга/платёжных шлюзов. Рассчитывается от чистой выручки после возвратов.</span></span></div>
+                    <input type="number" id="payFee" value="0" min="0" max="100" step="0.1" />
+                    <small>% от выручки</small>
+                </div>
+                <div class="row">
+                    <div>Комиссия площадки <span class="tooltip-icon">i<span class="tooltip-text">Процент агрегатора/маркетплейса, если есть. Также от чистой выручки.</span></span></div>
+                    <input type="number" id="platformFee" value="0" min="0" max="100" step="0.1" />
+                    <small>% от выручки</small>
+                </div>
+            </details>
+              <div class="row">
+              <div>Описание бизнеса</div>
+              <textarea id="bizDesc" rows="3" placeholder="Опишите ваш бизнес и как вы хотите зарабатывать..."></textarea>
+            </div>
+            <button onclick="generateJSON()">Сформировать JSON для анализа</button>
+            <pre id="jsonOutput"></pre>
+        </div>
+
+        <div class="card" id="results">
+            <h2>Результаты (обновляются мгновенно)</h2>
+            <div class="out"><span>Период анализа</span><b class="num" id="periodOut">–</b></div>
+            <div class="out"><span>Покупатели (Buyers) <span class="tooltip-icon">i<span class="tooltip-text">Количество клиентов, которые совершили хотя бы одну покупку.</span></span></span><b class="num" id="buyers">–</b></div>
+            <div class="out"><span>Всего заказов <span class="tooltip-icon">i<span class="tooltip-text">Общее количество заказов, включая повторные покупки (Buyers × APC).</span></span></span><b class="num" id="orders">–</b></div>
+            <div class="out"><span>Валовая выручка (Revenue) <span class="tooltip-icon">i<span class="tooltip-text">Сумма всех заказов до учёта возвратов и комиссий.</span></span></span><b class="num" id="revenue">–</b></div>
+            <div class="out"><span>Чистая выручка (после рефандов) <span class="tooltip-icon">i<span class="tooltip-text">Выручка после вычета возвратов/отмен.</span></span></span><b class="num" id="revenueNet">–</b></div>
+            <div class="out"><span>Переменные затраты <span class="tooltip-icon">i<span class="tooltip-text">Сумма COGS, разовых расходов на клиента и комиссий.</span></span></span><b class="num" id="varCost">–</b></div>
+            <div class="out"><span>— COGS <span class="tooltip-icon">i<span class="tooltip-text">Совокупная себестоимость всех заказов.</span></span></span><b class="num" id="cogsPart">–</b></div>
+            <div class="out"><span>— One‑time на клиента <span class="tooltip-icon">i<span class="tooltip-text">Общая сумма разовых расходов на всех клиентов.</span></span></span><b class="num" id="onePart">–</b></div>
+            <div class="out"><span>— Комиссии (платежи/площадка) <span class="tooltip-icon">i<span class="tooltip-text">Сумма комиссий платёжных систем и маркетплейсов.</span></span></span><b class="num" id="feesPart">–</b></div>
+            <div class="out"><span>Валовая прибыль (GP) <span class="tooltip-icon">i<span class="tooltip-text">Доход после вычета переменных затрат.</span></span></span><b class="num" id="grossProfit">–</b></div>
+            <div class="out"><span>CPA (на платного клиента) <span class="tooltip-icon">i<span class="tooltip-text">Стоимость привлечения одного платного клиента (AC ÷ платные клиенты).</span></span></span><b class="num" id="cpa">–</b></div>
+            <div class="out"><span>ARPPU (на клиента) <span class="tooltip-icon">i<span class="tooltip-text">Средний доход на одного клиента (RevenueNet ÷ Buyers).</span></span></span><b class="num" id="arppu">–</b></div>
+            <div class="out"><span>ARPU (на пользователя) <span class="tooltip-icon">i<span class="tooltip-text">Средний доход на одного посетителя (RevenueNet ÷ UA).</span></span></span><b class="num" id="arpu">–</b></div>
+            <div class="out"><span>LTV (на клиента) <span class="tooltip-icon">i<span class="tooltip-text">Ожидаемая суммарная ценность клиента за период APC.</span></span></span><b class="num" id="ltv">–</b></div>
+            <div class="out"><span>Вклад после маркетинга <span class="tooltip-icon">i<span class="tooltip-text">Валовая прибыль минус маркетинговые расходы.</span></span></span><b class="num" id="contrib">–</b></div>
+            <div class="out"><span>Чистая прибыль (Net) <span class="tooltip-icon">i<span class="tooltip-text">Окончательный результат после вычета всех затрат, включая фиксированные.</span></span></span><b class="num" id="net">–</b></div>
+            <div class="foot" id="verdict">—</div>
+        </div>
+    </div>
+
+    <h2>Ключевые KPI</h2>
+    <div class="totals" id="kpis">
+        <div class="kpi"><h3>Маржинальность заказа</h3><div class="val num" id="marginPerOrder">–</div><div class="hint">Av.Price − COGS</div></div>
+        <div class="kpi"><h3>Unit‑экономика</h3><div class="val num" id="unitOK">–</div><div class="hint">Сравнение: LTV vs CPA</div></div>
+        <div class="kpi"><h3>Точка безубыточности</h3><div class="val num" id="breakeven">–</div><div class="hint">Минимум покупателей для Net ≥ 0</div></div>
+        <div class="kpi"><h3>Окупаемость рекламы</h3><div class="val num" id="roas">–</div><div class="hint">ROAS = Чистая выручка / AC</div></div>
+    </div>
+
+    <h2>Визуализация</h2>
+    <div class="grid">
+        <div class="card">
+            <h2>Декомпозиция P&L</h2>
+            <canvas id="bar"></canvas>
+            <div class="hint">Показывает структуру: выручка, переменные затраты, реклама, фикс‑издержки, чистая прибыль.</div>
+        </div>
+        <div class="card">
+            <h2>Состав переменных затрат</h2>
+            <canvas id="donut"></canvas>
+            <div class="hint">Доли COGS, one‑time и комиссий в общих переменных расходах.</div>
+        </div>
+    </div>
+
+    <details>
+        <summary>Формулы и логика</summary>
+        <div class="hint">
+            <ul>
+                <li><b>Buyers</b> = UA × C1%.</li>
+                <li><b>Orders</b> = Buyers × APC.</li>
+                <li><b>Revenue</b> = Orders × Av.Price.</li>
+                <li><b>Refunds</b> = Revenue × RefundRate%.</li>
+                <li><b>RevenueNet</b> = Revenue − Refunds.</li>
+                <li><b>Fees</b> = RevenueNet × (PayFee% + PlatformFee%).</li>
+                <li><b>VariableCost</b> = Orders × COGS + Buyers × One‑time + Fees.</li>
+                <li><b>GP</b> = RevenueNet − VariableCost.</li>
+                <li>Платные покупатели = Buyers × (1 − Organic%).</li>
+                <li><b>CPA</b> = AC / платные покупатели.</li>
+                <li><b>ARPPU</b> = RevenueNet / Buyers; <b>ARPU</b> = RevenueNet / UA.</li>
+                <li><b>LTV</b> = (Av.Price − COGS) × APC − One‑time − средняя комиссия (по факту: Fees/Buyers).</li>
+                <li><b>Contribution</b> = GP − AC.</li>
+                <li><b>Net</b> = Contribution − Fix Cost.</li>
+                <li><b>ROAS</b> = RevenueNet / AC.</li>
+                <li><b>Учёт периода</b>: AC<sub>итого</sub> = AC × Months; Fix<sub>итого</sub> = Fix × Months.</li>
+            </ul>
+        </div>
+    </details>
+
+    <p class="foot">Подсказки (i) у полей объясняют смысл параметров. Значения округляются в отображении для удобства, расчёты ведутся с полной точностью.</p>
+</div>
+
+<script>
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n, d=0) => (!isFinite(n)? '—' : n.toLocaleString('ru-RU',{maximumFractionDigits:d,minimumFractionDigits:d}));
+
+    function toggleTheme(){
+        const light = document.body.classList.toggle('light');
+        localStorage.setItem('ue_theme', light? 'light':'dark');
+        $('themeBtn').textContent = light? 'Тёмная тема' : 'Светлая тема';
+        drawAll(last);
+    }
+    (function(){
+        const saved = localStorage.getItem('ue_theme');
+        if(saved==='light'){document.body.classList.add('light');$('themeBtn').textContent='Тёмная тема';}
+    })();
+
+    const inputs = [
+        'months','ua','c1','avgPrice','cogs','firstOrderExtra','apc','adSpend','organicShare','fixed',
+        'refundRate','payFee','platformFee'
+    ];
+    inputs.forEach(id=> $(id).addEventListener('input', recalc));
+
+    function num(id){
+        const raw = $(id).value.replace(',', '.');
+        const v = parseFloat(raw);
+        return isFinite(v)? v: 0;
+    }
+    function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+
+    function breakevenBuyers(params){
+        const {UA, C1, AvPrice, COGS, One, APC, AC, Organic, Fixed, refundRate, feesRate} = params;
+        let lo = 0, hi = Math.max(1, Math.round(UA));
+        let ans = null;
+        function netFor(buyers){
+            const orders = buyers * APC;
+            const revenue = orders * AvPrice;
+            const revNet = revenue * (1 - refundRate);
+            const fees = revNet * feesRate;
+            const varCost = orders * COGS + buyers * One + fees;
+            const gp = revNet - varCost;
+            const contrib = gp - AC;
+            const net = contrib - Fixed;
+            return net;
+        }
+        while (lo <= hi){
+            const mid = Math.floor((lo+hi)/2);
+            const nf = netFor(mid);
+            if (nf >= 0){ ans = mid; hi = mid - 1; } else { lo = mid + 1; }
+        }
+        return ans;
+    }
+
+    let last = null; // для перерисовки графиков
+
+    function recalc(){
+        const Months = Math.max(1, Math.floor(num('months')));
+
+        const UA = Math.max(0, num('ua'));
+        const C1 = clamp(num('c1')/100, 0, 1);
+        const AvPrice = Math.max(0, num('avgPrice'));
+        const COGS = Math.max(0, num('cogs'));
+        const One = Math.max(0, num('firstOrderExtra'));
+        const APC = Math.max(1, num('apc'));
+        const AC_month = Math.max(0, num('adSpend'));
+        const Fixed_month = Math.max(0, num('fixed'));
+        const AC = AC_month * Months;         // учёт периода
+        const Fixed = Fixed_month * Months;   // учёт периода
+        const Organic = clamp(num('organicShare')/100, 0, 1);
+        const refundRate = clamp(num('refundRate')/100, 0, 1);
+        const payFee = clamp(num('payFee')/100, 0, 1);
+        const platformFee = clamp(num('platformFee')/100, 0, 1);
+        const feesRate = payFee + platformFee;
+
+        const buyers = Math.round(UA * C1);
+        const orders = buyers * APC;
+        const revenue = orders * AvPrice;
+        const refunds = revenue * refundRate;
+        const revenueNet = revenue - refunds;
+        const fees = revenueNet * feesRate;
+
+        const varCost = orders * COGS + buyers * One + fees;
+        const cogsPart = orders * COGS;
+        const onePart = buyers * One;
+        const feesPart = fees;
+
+        const grossProfit = revenueNet - varCost;
+
+        const paidBuyers = buyers * (1 - Organic);
+        const cpa = paidBuyers>0 ? AC / paidBuyers : Infinity;
+
+        const arppu = buyers>0 ? revenueNet / buyers : 0;
+        const arpu  = UA>0 ? revenueNet / UA : 0;
+
+        const avgFeesPerBuyer = buyers>0 ? fees / buyers : 0;
+        const ltv = (AvPrice - COGS) * APC - One - avgFeesPerBuyer;
+
+        const contrib = grossProfit - AC;
+        const net = contrib - Fixed;
+
+        const roas = AC>0 ? revenueNet/AC : Infinity;
+
+        // Вывод
+        $('periodOut').textContent = fmt(Months) + ' мес.';
+        $('buyers').textContent = fmt(buyers);
+        $('orders').textContent = fmt(orders);
+        $('revenue').textContent = fmt(revenue, 0) + ' ₽';
+        $('revenueNet').textContent = fmt(revenueNet, 0) + ' ₽';
+        $('varCost').textContent = fmt(varCost, 0) + ' ₽';
+        $('cogsPart').textContent = fmt(cogsPart, 0) + ' ₽';
+        $('onePart').textContent = fmt(onePart, 0) + ' ₽';
+        $('feesPart').textContent = fmt(feesPart, 0) + ' ₽';
+        $('grossProfit').textContent = fmt(grossProfit, 0) + ' ₽';
+        $('cpa').textContent = (isFinite(cpa)? fmt(cpa,0)+' ₽' : '∞');
+        $('arppu').textContent = fmt(arppu, 0) + ' ₽';
+        $('arpu').textContent = fmt(arpu, 0) + ' ₽';
+        $('ltv').textContent = fmt(ltv, 0) + ' ₽';
+        $('contrib').textContent = fmt(contrib, 0) + ' ₽';
+        $('net').textContent = fmt(net, 0) + ' ₽';
+
+        const marginPerOrder = AvPrice - COGS;
+        $('marginPerOrder').textContent = fmt(marginPerOrder, 0) + ' ₽';
+
+        const unit = (ltv > cpa) ? 'Положительная' : (Math.abs(ltv-cpa)<1e-9 ? 'На грани' : 'Отрицательная');
+        const pill = ltv > cpa ? '<span class="pill ok">OK</span>' : (Math.abs(ltv-cpa)<1e-9 ? '<span class="pill warn">=</span>' : '<span class="pill bad">NO</span>');
+        $('unitOK').innerHTML = unit + ' ' + pill;
+
+        const be = breakevenBuyers({UA, C1, AvPrice, COGS, One, APC, AC, Organic, Fixed, refundRate, feesRate});
+        $('breakeven').textContent = (be==null? 'Недостижимо при текущих UA' : fmt(be));
+
+        $('roas').textContent = isFinite(roas)? fmt(roas,2)+'×' : '∞';
+
+        let verdict = '';
+        if (!isFinite(cpa) || paidBuyers===0) verdict += '⚠️ Нет платных покупателей — CPA не определён. ';
+        if (marginPerOrder <= 0) verdict += '❗ Маржа на заказ неположительная: пересмотри Av.Price/COGS. ';
+        verdict += (ltv > cpa)
+            ? '✅ LTV > CPA: модель окупается на горизонте APC.'
+            : '❌ LTV ≤ CPA: удорожание привлечения/низкая маржа — оптими­зируй прайс, COGS, APC или трафик.';
+        $('verdict').textContent = verdict;
+
+        last = {revenueNet, varCost, AC, Fixed, net, cogsPart, onePart, feesPart};
+        drawAll(last);
+    }
+
+    function drawAll(s){ if(!s) return; drawBar('bar', s); drawDonut('donut', [s.cogsPart, s.onePart, s.feesPart], ['COGS','One‑time','Комиссии']); }
+
+    function drawBar(id, s){
+        const c = $(id); const ctx = c.getContext('2d');
+        const W = c.width = c.clientWidth; const H = c.height = c.clientHeight;
+        ctx.clearRect(0,0,W,H);
+        const labels = ['Выручка','Переменные','Реклама','Фикс','Чистая'];
+        const vals = [s.revenueNet, s.varCost, s.AC, s.Fixed, s.net];
+        const colors = [getCss('--rev'), getCss('--cost'), getCss('--ad'), getCss('--fix'), getCss('--net')];
+        const max = Math.max(...vals.map(v=>Math.abs(v))) || 1;
+        const pad = 36; const gap = 20; const bw = (W - pad*2 - gap*(vals.length-1)) / vals.length;
+        const mid = H - 24; // baseline
+        ctx.font = '12px system-ui'; ctx.fillStyle = getCss('--muted');
+        ctx.fillText('₽', 8, 14);
+        vals.forEach((v,i)=>{
+            const x = pad + i*(bw+gap);
+            const h = Math.round((Math.abs(v)/max) * (H-70));
+            const y = v>=0 ? mid - h : mid;
+            ctx.fillStyle = colors[i];
+            roundRect(ctx, x, y, bw, h, 8, true);
+            ctx.fillStyle = getCss('--text');
+            ctx.fillText(short(fmt(v,0)+'', 8), x, y - 6);
+            ctx.fillStyle = getCss('--muted');
+            ctx.fillText(labels[i], x, H-6);
+        });
+    }
+
+    function drawDonut(id, values, labels){
+        const c = $(id); const ctx = c.getContext('2d');
+        const W = c.width = c.clientWidth; const H = c.height = c.clientHeight;
+        ctx.clearRect(0,0,W,H);
+        const total = values.reduce((a,b)=>a+b,0) || 1;
+        const cx=W/2, cy=H/2, r=Math.min(W,H)/2 - 16, inner=r*0.55;
+        const cols=[getCss('--cost'), getCss('--warn'), getCss('--rev')];
+        let ang=-Math.PI/2;
+        values.forEach((val,i)=>{
+            const slice = (val/total)*Math.PI*2;
+            ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,ang,ang+slice); ctx.closePath(); ctx.fillStyle = cols[i%cols.length]; ctx.fill();
+            ang += slice;
+        });
+        // вырез внутреннего круга
+        ctx.globalCompositeOperation='destination-out';
+        ctx.beginPath(); ctx.arc(cx,cy,inner,0,Math.PI*2); ctx.fill();
+        ctx.globalCompositeOperation='source-over';
+        // легенда
+        ctx.font='12px system-ui';
+        const legendY = 16; let lx=14;
+        labels.forEach((name,i)=>{
+            ctx.fillStyle = [getCss('--cost'), getCss('--warn'), getCss('--rev')][i%3];
+            ctx.fillRect(lx, legendY-10, 10, 10);
+            ctx.fillStyle = getCss('--text');
+            const text = `${name}: ${fmt(values[i],0)} ₽`;
+            ctx.fillText(text, lx+16, legendY);
+            lx += ctx.measureText(text).width + 34;
+        });
+    }
+
+    function getCss(varName){ return getComputedStyle(document.body).getPropertyValue(varName).trim(); }
+    function roundRect(ctx,x,y,w,h,r,fill){
+        if(w<2*r) r=w/2; if(h<2*r) r=h/2;
+        ctx.beginPath();
+        ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r);
+        ctx.closePath(); if(fill) ctx.fill(); else ctx.stroke();
+    }
+    function short(s, max){ return s.length>max ? s.slice(0,max)+'…' : s; }
+
+    recalc();
+
+    function generateJSON(){
+        const data={
+            months:num('months'),
+            ua:num('ua'),
+            c1:num('c1'),
+            avgPrice:num('avgPrice'),
+            cogs:num('cogs'),
+            firstOrderExtra:num('firstOrderExtra'),
+            apc:num('apc'),
+            adSpend:num('adSpend'),
+            organicShare:num('organicShare'),
+            fixed:num('fixed'),
+            refundRate:num('refundRate'),
+            payFee:num('payFee'),
+            platformFee:num('platformFee'),
+            buyers:document.getElementById('buyers').textContent,
+            orders:document.getElementById('orders').textContent,
+            revenue:document.getElementById('revenue').textContent,
+            revenueNet:document.getElementById('revenueNet').textContent,
+            varCost:document.getElementById('varCost').textContent,
+            cogsPart:document.getElementById('cogsPart').textContent,
+            onePart:document.getElementById('onePart').textContent,
+            feesPart:document.getElementById('feesPart').textContent,
+            grossProfit:document.getElementById('grossProfit').textContent,
+            cpa:document.getElementById('cpa').textContent,
+            arppu:document.getElementById('arppu').textContent,
+            arpu:document.getElementById('arpu').textContent,
+            ltv:document.getElementById('ltv').textContent,
+            contrib:document.getElementById('contrib').textContent,
+            net:document.getElementById('net').textContent,
+            marginPerOrder:document.getElementById('marginPerOrder').textContent,
+            unitOK:document.getElementById('unitOK').innerText,
+            breakeven:document.getElementById('breakeven').textContent,
+            roas:document.getElementById('roas').textContent,
+            verdict:document.getElementById('verdict').textContent,
+            businessDescription: document.getElementById('bizDesc').value.trim()
+        };
+        document.getElementById('jsonOutput').textContent=JSON.stringify(data,null,2);
+        document.getElementById('jsonOutput').style.display='block';
+    }
+</script>
+</body>
+</html>
